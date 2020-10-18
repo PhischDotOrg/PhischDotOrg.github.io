@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>
+    glxiic - FreeBSD I2C driver for Geode LX
+  </title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" media="screen" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" media="print" type="text/css" href="../css/print.css" />
+  <link rel="stylesheet" href="../glxiic/" type="text/css" />
+
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+
+  
+
+  <script type="text/javascript">
+    /*
+     * If you're wondering what all this is about: I'm hoping that this will
+     * keep most web crawlers from harvesting my Email address while still
+     * giving nearly all users a "clickable" Email link.
+     */
+    function load() {
+      var menu_email = document.getElementById("menu_email");
+      var email = document.getElementById("email");
+
+      var menu_href = document.createAttribute("href");
+      var href = document.createAttribute("href");
+
+      var address = "mailto:";
+      address += "phs";
+      address += "@";
+      address += "deadc0";
+      address += ".";
+      address += "de"
+
+      menu_href.nodeValue=address;
+      href.nodeValue=address;
+
+      menu_email.setAttributeNode(menu_href);
+      if  (email) email.setAttributeNode(href);
+    }
+  </script>
+ </head>
+ <body onload="load()">
+
+ <div class="top_menu">
+   <h2 class="top_menu">Navigation</h2>
+   <ol class="top_menu">
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/">
+       Home
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="#Projects">
+       Projects
+      </a>
+     </span>
+
+      <ul class="top_submenu">
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/efiboot/index.html">efiboot</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/xc3s400a/index.html">FPGA</a>
+        </span>
+        <ul class="top_sub2menu">
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_gpio/index.html">gpio</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_i2c_slave/index.html">i2c_slave</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_spimaster/index.html">spimaster</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_switch/index.html">wb_switch</a>
+          </span>
+         </li>
+        </ul>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/glxiic/index.html">glxiic</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/loopinglouie/index.html">Looping Louie</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/obd2diag/index.html">OBD-II Diagnostics Tool</a>
+        </span>
+       </li>
+      </ul>
+    </li>
+
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/blog">
+       Blog
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/music">
+       Music
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="http://www.flickr.com/photos/deadc0de/">
+       Photos
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" id="menu_email">
+       Contact
+      </a>
+     </span>
+    </li>
+   </ol>
+ </div>
+
+ <div id="menu">
+  <h2 class="menu">Contents</h2>
+  <ul class="menu">
+   <li class="menu"><a href="#home">Top</a></li>
+<li class="menu"><a href="#hardware">Hardware</a></li>
+<li class="menu"><a href="#download">Download</a></li>
+<li class="menu"><a href="#installation">Installation</a></li>
+<li class="menu"><a href="#architecture">Architecture</a></li>
+<li class="menu"><a href="#patches">Patches</a></li>
+<li class="menu"><a href="#links">Links</a></li>
+
+
+    <li class="menu"><a href="#contact">Contact</a></li>
+   <li class="menu"><a href="#share">Share</a></li>
+  </ul>
+ </div>
+
+ <div id="content">
+   <a name="home" id="home"></a>
+<h1>glxiic - FreeBSD I2C driver for Geode LX</h1>
+<p>This is the project homepage for <span class="code">glxiic(4)</span>, a
+FreeBSD I2C bus driver for systems based on the AMD Geode LX chipset. The
+website hosts the driver and the corresponding documentation as well as a few
+patches for FreeBSD that were created when writing the driver.</p>
+
+<p>Last updated: <span class="code">$Date$</span>.</p>
+
+<h3>Updates</h3>
+<h4>Feb 19th, 2013</h4>
+<p>Make <span class="code">glxiic(4)</span> work if loaded at boot time,
+too.</p>
+
+<h4>Jan 5th, 2013</h4>
+<p>HTML changes related to my home-grown &quot;CMS.&quot;</p>
+
+<h4>Dec 20th, 2012</h4>
+<p>Found and corrected a few issues when trying to re-create my setup on FreeBSD
+9.1, the latest release at this time.</p>
+<ul>
+  <li>Code fix in the driver which failed to attach if no flags were provided
+  through <span class="code">/boot/devices.hints</span></li>
+  <li>Updated installation instructions. <span class="code">glxisab(4)</span>
+  must be compiled into the kernel and <span class="code">glxiic(4)</span> fails
+  to attach if loaded at boot time.</li>
+</ul>
+
+<a name="hardware" id="hardware"></a>
+<h2>Hardware</h2>
+<p>Some (most? all?) AMD Geode LX based designs use the AMD Geode CS5536
+southbridge which integrates an I2C/SMBus master function. Alternatively, the
+same logic can be programmed to behave as an I2C/SMBus slave device. The
+<span class="code">glxiic(4)</span> driver supports the I2C/SMBus master
+functionality in the CS5536 chip.  The driver has been tested on an Alix 1.C
+board running FreeBSD 8.2 - other boards, similar chips and different versions
+of FreeBSD have not been tested.  </p>
+
+<a name="download" id="download" ></a>
+<h2>Download</h2>
+<p>The source code of the <span class="code">glxisab</span> as well as the
+<span class="code">glxiic</span> driver can be downloaded from <a
+href="files/glxiic-v1.2.tgz">this location</a>.</p>
+
+<a name="installation" id="installation" ></a>
+<h2>Installation</h2>
+<div class="update">
+  <span class="update_title">Update Dec 20th, 2012:</span>
+  <span class="update_content">I've found that loading the <span
+  class="code">glxisab(4)</span> driver as a module doesn't work on FreeBSD
+  9.1 anymore.  Actually, I'm not sure if this ever worked. The solution is
+  to compile the device into the kernel. The instructions below reflect that.</span>
+</div>
+
+<p>Here's a step-by-step tutorial on how to compile the driver into the
+kernel:</p>
+
+<ul>
+  <li>Extract the archive and enter the <span class="code">glxiic</span>
+  directory.</li>
+
+  <li>Run <span class="code">make</span>, followed by <span class="code">make
+  install</span> to compile and install the <span class="code">glxiic</span>
+  module. Note that you need to be root to install the module.</li>
+
+  <li>Create a symbolic link to the <span class="code">glxiic</span> directory
+  in <span class="code">/usr/src/sys/modules</span> as well as in <span
+  class="code">/usr/src/sys/dev</span>. In order to avoid conflicts with the
+  stock driver, name the link <span class="code">glx</span>.</li>
+
+  <li>Add two lines such as below to
+    <span class="code">/usr/src/sys/conf/files.i386</span>:
+  </li>
+</ul>
+
+<div class="code">
+    dev/glx/glx.c       optional glx <br />
+    dev/glx/glx_isab.c  optional glx
+</div>
+
+<ul>
+  <li>Add <span class="code">device glx</span> to a custom kernel config. Then
+  build and install that kernel.</li>
+
+  <li>Add a line that reads <span
+  class="code">hint.glxiic.0.at=&quot;isa&quot;</span> and one that reads
+  <span class="code">hint.glxiic.0.irq=&quot;12&quot;</span> to <span
+  class="code">/boot/device.hints</span>. Note that in this example, I used
+  IRQ 12 which needs to be unused in order for this to work.</li>
+</ul>
+
+<div class="code">
+  hint.glxiic.0.at=&quot;isa&quot; <br />
+  hint.glxiic.0.irq=&quot;12&quot;
+</div>
+
+<ul>
+  <li>After a reboot, you can load the <span class="code">glxiic</span> module via <span
+  class="code">kldload /path/to/glxiic.ko</span>. I've found that loading the
+  module on boot through <span class="code">/boot/loader.conf</span> does not
+  work.</li>
+</ul>
+
+<p>Here is the same procedure in a more condensed version:</p>
+
+<div class="code">
+ $ tar -xzvf glxiic.tgz <br />
+ $ ln -s ./glxiic /usr/src/sys/modules/glx <br />
+ $ ln -s ./glxiic /usr/src/sys/dev/glx <br />
+ $ echo 'dev/glx/glx.c optional glx' &gt;&gt; /usr/src/sys/conf/files.i386 <br />
+ $ echo 'dev/glx/glx_isab.c optional glx' &gt;&gt; /usr/src/sys/conf/files.i386 <br />
+ $ cp /usr/src/sys/i386/conf/GENERIC /usr/src/sys/i386/conf/ALIX1C <br />
+ $ echo 'glx' &gt;&gt; /usr/src/sys/i386/conf/ALIX1C <br />
+ $ ( cd /usr/src &amp;&amp; sudo make buildkernel KERNCONF=ALIX1C ) <br />
+ $ ( cd /usr/src &amp;&amp; sudo make installkernel KERNCONF=ALIX1C ) <br />
+ $ cd glxiic <br />
+ $ make &amp;&amp; sudo make install <br />
+ $ echo 'glxiic_load=&quot;YES&quot;' &gt;&gt; /boot/loader.conf <br />
+ $ echo 'hint.glxiic.0.at=&quot;isa&quot;' &gt;&gt; /boot/device.hints <br />
+ $ echo 'hint.glxiic.0.irq=&quot;12&quot;' &gt;&gt; /boot/device.hints <br />
+ $ sudo reboot <br />
+ $ sudo kldload glxiic
+</div>
+
+<p>Please note that in order to use the driver, you also need <span
+class="code">iicbus(4)</span> as well as <span class="code">iic(4)</span>.
+Their usage is documented in the appropriate manual pages.</p>
+
+<a name="architecture" id="architecture"></a>
+<h2>Architecture</h2>
+<p>The AMD Geode CS5536 contains what the data sheet calls "diverse
+integration logic" (DIVIL). The DIVIL block contains a bunch of devices that
+respond to legacy I/O ports such as a Programmable Interrupt Controller (PIC),
+AT Keyboard Controller, Real-time Clock (RTC) or Low Pin Count (LPC) bus
+controller. Those devices, if enabled, respond to the well known I/O port
+addresses of those functions.</p>
+
+<p>In addition to the legacy devices, the DIVIL also contains the I2C/SMBus
+controller and a few other functions that respond to I/O ports configured in a
+Base Address Register (BAR).</p>
+
+<p>To system software running on the host CPU, i.e. the host firmware or
+operating system, the DIVIL is represented as a function of a PCI device, a
+PCI-ISA bridge. Each of the BARs in the bridge's PCI configuration space
+configures the base address of one logic block in the DIVIL block.</p>
+
+<p>On FreeBSD, the PCI bus code scans the configuration space of all PCI
+devices it finds and resumes responsibility for the resources announced in the
+device's configuration space. In addition to that, there is a generic PCI-ISA
+bridge driver that attaches to all PCI devices that announce themselves as a
+PCI-ISA bridge.</p>
+
+<p>Because only direct child devices of the PCI bus driver can allocate those
+resources that a PCI device announces in its configuration space, and because
+the DIVIL block of the CS5536 south bridge announces a PCI-ISA bridge with a
+set of set up BARs, the <span class="code">glxiic(4)</span> device driver
+needs to be split in two parts.</p>
+
+<h3>Geode LX PCI-ISA Bridge Driver</h3>
+<p>The <span class="code">glxisab</span> driver is a replacement of the
+generic PCI-ISA bridge driver.  It attaches to the device and vendor ID of the
+DIVIL function in the CS5536 south bridge. The driver assumes responsibility
+of all resources announced in the BARs and makes sure that child drivers of
+the ISA bus can allocate those resources. To prevent the generic PCI-ISA
+bridge driver from attaching to the device, the <span
+class="code">glxisab</span> driver must be compiled into the kernel. Loading the
+module through <span class="code">/boot/loader.conf</span> does not work for
+unkown reasons.</p>
+
+<h3>Geode LX I2C/SMBus Driver</h3>
+<p>The <span class="code">glxiic(4)</span> driver is an ISA device driver. As
+such, it relies on information provided by the user via the <span
+class="code">/boot/device.hints</span> file. Contrary to most ISA device
+drivers, the <span class="code">glxiic(4)</span> driver can probe for the
+device and find out its I/O space addresses, but still requires the user to
+assign an interrupt.</p>
+
+<p>The <span class="code">glxiic(4)</span> driver provides an interface to the
+generic <span class="code">iicbus(4)</span> driver which in turn provides an
+interface to the generic <span class="code">iic(4)</span> driver which in turn
+creates a device node in <span class="code">/dev</span>. This device node can
+be used from userland, e.g. via the <span class="code">i2c(8)</span> utility,
+to control I2C devices attached to the bus.</p>
+
+<p>In versions prior to v1.2, the <span class="code">glxiic(4)</span> driver
+failed to allocate the required interrupt from the ISA bus when loaded at boot
+time. The work around was to load the kernel module after the kernel has booted
+up, either manually or through an init script. This issue has been fixed in v1.2
+and the regular mechanism, i.e. loading the module at boot time via <span
+class="code">/boot/loader.conf</span> works. For completeness, here's the line
+you need to add to <span class="code">/boot/loader.conf</span>:</p>
+
+<div class="code">
+glxiic_load="YES"
+</div>
+
+<a name="patches" id="patches" ></a>
+<h2>Patches</h2>
+<p>When writing the device driver, a few patches to FreeBSD were created. All
+of them should apply to FreeBSD 8.2 but may also work for other versions of
+the FreeBSD source tree. All patches mentioned below can be applied by this
+command:</p>
+
+<div class="code">
+  $ cd /usr/src
+  <br />
+  $ patch -p1 &lt; /path/to/patch/file
+</div>
+
+<h3>i2c Utility</h3>
+<p>The <span class="code">i2c(8)</span> utility is a little program using the
+<span class="code">iic(4)</span> interface to access I2C devices. In my
+opinion, it lacked three features:</p>
+<ul>
+  <li>Reads did not work for me.</li>
+  <li>It used 7-Bit addresses, but I find it more intuitive to use a device's
+  8-Bit address, e.g. I'd like to specify an address of 0xA0, instead of
+  0x50.</li>
+  <li>There was no way of splitting reads/writes into multiple chunks. I
+  thought this would be useful for S-EEPROMs which are often organized in
+  pages.</li>
+</ul>
+<p>These issues are addressed by <a href="files/i2c.diff">this patch</a>.</p>
+
+<a name="links" id="links"></a>
+<h2>Links</h2>
+<p>Here are a few links related to this project.</p>
+
+<ul>
+ <li>Homepage of the <a href="http://www.freebsd.org/">FreeBSD</a> project.</li>
+ <li>The FreeBSD <a href="http://www.freebsd.org/cgi/man.cgi">Manual Pages</a> online.</li>
+ <li>The <a href="http://www.amd.com/us/products/embedded/processors/geode-lx/cs5536-companion-device/Pages/cs5536-companion-device.aspx">AMD
+   Support Page</a> for the AMD CS5536 Companion Device.</li>
+ <li>The <a href="www.linuxmedialabs.com/LMLCD/LMLGEOMG/AMDG_CS5536.pdf">CS5536 Datasheet</a>.</li>
+ <li>Documentation on the <a href="support.amd.com/us/Embedded_TechDocs/32663C_lx_gx_pciconfig.pdf">PCI
+ Configuration Space</a> of the device.</li>
+</ul>
+
+
+
+    <a name="contact" id="contact"></a>
+    <h2>Contact</h2>
+    <p>Contact the author Philip Schulz by <a id="email">Email</a>.</p>
+ </div>
+
+ <div class="logo">
+   <div class="footer">&nbsp;</div>
+   <a class="logo" href="http://validator.w3.org/check?uri=referer">
+     <img class="logo" src="http://www.w3.org/Icons/valid-xhtml10-blue"
+       alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+   </a>
+   <a class="logo" href="http://jigsaw.w3.org/css-validator/">
+    <img class="logo" style="border:0;width:88px;height:31px"
+      src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+      alt="Valid CSS!" />
+   </a>
+ </div>
+
+ </body>
+</html>

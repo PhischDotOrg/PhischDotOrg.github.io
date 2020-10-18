@@ -1,0 +1,26 @@
+@import "../css/lightbox.css";
+
+div.pictures {
+    background: white;
+    border: none;
+}
+
+span.picture {
+    margin: 0;
+    padding: 0;
+}
+
+img.thumbnail {
+    margin: 0.2em;
+    padding: 1em;
+    border: 1px dotted black;
+}
+
+img:hover {
+    background-color: #e6e6e6;
+};
+
+a:hover {
+    border-bottom: none;
+}
+

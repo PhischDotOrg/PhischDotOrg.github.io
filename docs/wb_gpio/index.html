@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>
+    wb_gpio - A Wishbone GPIO Engine for FPGAs
+  </title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" media="screen" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" media="print" type="text/css" href="../css/print.css" />
+  <link rel="stylesheet" href="../wb_gpio/" type="text/css" />
+
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+
+  
+
+  <script type="text/javascript">
+    /*
+     * If you're wondering what all this is about: I'm hoping that this will
+     * keep most web crawlers from harvesting my Email address while still
+     * giving nearly all users a "clickable" Email link.
+     */
+    function load() {
+      var menu_email = document.getElementById("menu_email");
+      var email = document.getElementById("email");
+
+      var menu_href = document.createAttribute("href");
+      var href = document.createAttribute("href");
+
+      var address = "mailto:";
+      address += "phs";
+      address += "@";
+      address += "deadc0";
+      address += ".";
+      address += "de"
+
+      menu_href.nodeValue=address;
+      href.nodeValue=address;
+
+      menu_email.setAttributeNode(menu_href);
+      if  (email) email.setAttributeNode(href);
+    }
+  </script>
+ </head>
+ <body onload="load()">
+
+ <div class="top_menu">
+   <h2 class="top_menu">Navigation</h2>
+   <ol class="top_menu">
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/">
+       Home
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="#Projects">
+       Projects
+      </a>
+     </span>
+
+      <ul class="top_submenu">
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/efiboot/index.html">efiboot</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/xc3s400a/index.html">FPGA</a>
+        </span>
+        <ul class="top_sub2menu">
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_gpio/index.html">gpio</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_i2c_slave/index.html">i2c_slave</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_spimaster/index.html">spimaster</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_switch/index.html">wb_switch</a>
+          </span>
+         </li>
+        </ul>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/glxiic/index.html">glxiic</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/loopinglouie/index.html">Looping Louie</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/obd2diag/index.html">OBD-II Diagnostics Tool</a>
+        </span>
+       </li>
+      </ul>
+    </li>
+
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/blog">
+       Blog
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/music">
+       Music
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="http://www.flickr.com/photos/deadc0de/">
+       Photos
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" id="menu_email">
+       Contact
+      </a>
+     </span>
+    </li>
+   </ol>
+ </div>
+
+ <div id="menu">
+  <h2 class="menu">Contents</h2>
+  <ul class="menu">
+   <li class="menu"><a href="#top">Top</a></li>
+<li class="menu"><a href="#overview">Overview</a></li>
+<li class="menu"><a href="#usage">Usage</a></li>
+<li class="menu"><a href="#registers">Registers</a></li>
+<li class="menu"><a href="#download">Download</a></li>
+<li class="menu"><a href="#links">Links</a></li>
+
+    <li class="menu"><a href="#contact">Contact</a></li>
+   <li class="menu"><a href="#share">Share</a></li>
+  </ul>
+ </div>
+
+ <div id="content">
+   <a name="top" id="top"></a>
+<h1>wb_gpio - A Wishbone GPIO Engine for FPGAs</h1>
+<p>This is the project homepage for <span class="code">wb_gpio</span>, a GPIO
+engine for the Wishbone bus, written in VHDL.</p>
+
+<p>Last updated: <span class="code">$Date$</span>.</p>
+
+<a name="overview" id="overview"></a>
+<h2>Overview</h2>
+<p>The <span class="code">wb_gpio</span> module is a general-purpose I/O driver
+which can be controlled from the Wishbone bus interface. It allows the user to
+configure and control the I/O pins individually. Pins can be configured as
+inputs or outputs. The module does not support generating interrupts, e.g. when
+an input changes.</p>
+
+<a name="usage" id="usage"></a>
+<h2>Usage</h2>
+<p>Using the <span class="code">wb_switch</span> component in your VHDL design
+is as easy as declaring and instantiating any other component. Below is the VHDL
+entity declaration of the component.</p>
+
+<div class="code">
+  <object data="example_gpio.txt" type="text/plain" width="100%">
+    <p>Your browser apparently cannot display embedded frames. Try viewing the
+    example directly <a href="example_gpio.txt">here</a>.</p>
+  </object>
+</div>
+
+<p>Because pins configured as inputs cause the output drivers to assume a
+&quot;hi-Z&quot; state, the module's <span class="code">gp_io</span> signals
+should be routed to actual I/O pins on the FPGA. If you fail to do that, the
+synthesis tool will route the signals to IOBs which is likely to pessimize your
+design.</p>
+
+<p>The design is customizable through generics, which are described in the
+following table.</p>
+
+<div class="datasheet">
+  <table class="datasheet">
+    <tr>
+      <th>Generic</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td class="variable">dat_sz</td>
+      <td class="description">Width of Wishbone data bus. Also number of general purpose I/O
+      pins.</td>
+    </tr>
+  </table>
+</div>
+
+<p>The module supports Wishbone classic read and write cycles. It will generate
+a <span class="code">ack</span> response within one clock cycle. The <span
+class="code">ack</span> output is asserted as long as the module's <span
+class="code">stb</span> input is active. There are no errors or retry conditions
+generated. Because the module generates a response within one cycle, it does
+never drive the <span class="code">stall</span> output. Nevertheless, it should
+support Wishbone classic pipelined read and write cycles, too, but that hasn't
+been tested so far.</p>
+
+<a name="registers" id="registers" ></a>
+<h2>Registers</h2>
+<p>The module exposes four registers which are described in the table below.</p>
+<div class="datasheet">
+  <table class="datasheet">
+    <tr>
+      <th>Offset</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td class="variable">0x00</td>
+      <td class="name">Output</td>
+      <td class="description">Writing to this register causes enabled output
+      pins to assume the written value. In other words, writing to this register
+      adjusts all output pins. Reading from this register will return the
+      current value of the general purpose I/O pins, independent of whether they
+      are configured as outputs or inputs.</td>
+    </tr>
+    <tr>
+      <td class="variable">0x01</td>
+      <td class="name">Enable</td>
+      <td class="description">Setting a bit in this register turns the
+      general purpose I/O pin into an output. Clearing a bit in this register
+      turns the general purpose I/O pin into an input. This will cause the
+      output driver to assume a &quot;hi-Z&quot; state. Reading the register
+      will return the current settings.</td>
+    </tr>
+    <tr>
+      <td class="variable">0x02</td>
+      <td class="name">Mask</td>
+      <td class="description">Setting a bit in this register allows the
+      corresponding output to be changed by writing to the &quot;update&quot;
+      register. Reading this register will return the current settings.</td>
+    </tr>
+    <tr>
+      <td class="variable">0x03</td>
+      <td class="name">Update</td>
+      <td class="description">Writing to this register updates those output pins
+      whose corresponding bits in the &quot;mask&quot; register are set. In
+      other words, by writing to the &quot;mask&quot; and then to the
+      &quot;update&quot; register, &quot;update&quot; (or sometimes also
+      &quot;write under mask&quot;) semantics can be implemented, where only a
+      single output pin is changed, while others are left untouched.</td>
+    </tr>
+  </table>
+</div>
+
+
+<a name="download" id="download" ></a>
+<h2>Download</h2>
+<p>
+Below are the links to the VHDL file(s).</p>
+
+<ul>
+  <li>GPIO Engine, <a href="../vhdl/wb_gpio.vhd">wb_gpio.vhd</a></li>
+</ul>
+
+<a name="links" id="links"></a>
+<h2>Links</h2>
+<p>Here are a few links related to this project.</p>
+
+<ul>
+ <li>Wikipedia Article on the <a href="http://en.wikipedia.org/wiki/Wishbone_(computer_bus)">Wishbone Bus</a>.</li>
+ <li>The <a href="http://cdn.opencores.org/downloads/wbspec_b4.pdf">Wishbone Bus Specification</a>, Rev. B4</li>
+</ul>
+
+
+
+    <a name="contact" id="contact"></a>
+    <h2>Contact</h2>
+    <p>Contact the author Philip Schulz by <a id="email">Email</a>.</p>
+ </div>
+
+ <div class="logo">
+   <div class="footer">&nbsp;</div>
+   <a class="logo" href="http://validator.w3.org/check?uri=referer">
+     <img class="logo" src="http://www.w3.org/Icons/valid-xhtml10-blue"
+       alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+   </a>
+   <a class="logo" href="http://jigsaw.w3.org/css-validator/">
+    <img class="logo" style="border:0;width:88px;height:31px"
+      src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+      alt="Valid CSS!" />
+   </a>
+ </div>
+
+ </body>
+</html>

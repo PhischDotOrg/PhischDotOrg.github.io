@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>
+    wb_spimaster - A Wishbone SPI Master Engine for FPGAs
+  </title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" media="screen" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" media="print" type="text/css" href="../css/print.css" />
+  <link rel="stylesheet" href="../wb_spimaster/" type="text/css" />
+
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+
+  
+
+  <script type="text/javascript">
+    /*
+     * If you're wondering what all this is about: I'm hoping that this will
+     * keep most web crawlers from harvesting my Email address while still
+     * giving nearly all users a "clickable" Email link.
+     */
+    function load() {
+      var menu_email = document.getElementById("menu_email");
+      var email = document.getElementById("email");
+
+      var menu_href = document.createAttribute("href");
+      var href = document.createAttribute("href");
+
+      var address = "mailto:";
+      address += "phs";
+      address += "@";
+      address += "deadc0";
+      address += ".";
+      address += "de"
+
+      menu_href.nodeValue=address;
+      href.nodeValue=address;
+
+      menu_email.setAttributeNode(menu_href);
+      if  (email) email.setAttributeNode(href);
+    }
+  </script>
+ </head>
+ <body onload="load()">
+
+ <div class="top_menu">
+   <h2 class="top_menu">Navigation</h2>
+   <ol class="top_menu">
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/">
+       Home
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="#Projects">
+       Projects
+      </a>
+     </span>
+
+      <ul class="top_submenu">
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/efiboot/index.html">efiboot</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/xc3s400a/index.html">FPGA</a>
+        </span>
+        <ul class="top_sub2menu">
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_gpio/index.html">gpio</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_i2c_slave/index.html">i2c_slave</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_spimaster/index.html">spimaster</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_switch/index.html">wb_switch</a>
+          </span>
+         </li>
+        </ul>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/glxiic/index.html">glxiic</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/loopinglouie/index.html">Looping Louie</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/obd2diag/index.html">OBD-II Diagnostics Tool</a>
+        </span>
+       </li>
+      </ul>
+    </li>
+
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/blog">
+       Blog
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/music">
+       Music
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="http://www.flickr.com/photos/deadc0de/">
+       Photos
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" id="menu_email">
+       Contact
+      </a>
+     </span>
+    </li>
+   </ol>
+ </div>
+
+ <div id="menu">
+  <h2 class="menu">Contents</h2>
+  <ul class="menu">
+   <li class="menu"><a href="#top">Top</a></li>
+<li class="menu"><a href="#overview">Overview</a></li>
+<li class="menu"><a href="#usage">Usage</a></li>
+<li class="menu"><a href="#registers">Registers</a></li>
+<li class="menu"><a href="#download">Download</a></li>
+<li class="menu"><a href="#links">Links</a></li>
+
+    <li class="menu"><a href="#contact">Contact</a></li>
+   <li class="menu"><a href="#share">Share</a></li>
+  </ul>
+ </div>
+
+ <div id="content">
+   <a name="top" id="top"></a>
+<h1>wb_spimaster - A Wishbone SPI Master Engine for FPGAs</h1>
+<p>This is the project homepage for <span class="code">wb_spimaster</span>, an
+SPI master engine for the Wishbone bus, written in VHDL.</p>
+
+<p>Last updated: <span class="code">$Date$</span>.</p>
+
+<a name="overview" id="overview"></a>
+<h2>Overview</h2>
+<p>The <span class="code">wb_spimaster</span> module is a configurable SPI
+master engine which can be controlled from the Wishbone bus interface. It allows
+the user to configure several SPI parameters.</p>
+<p>The SPI master engine is made up of a shift engine component which controls
+the SPI bus. The Wishbone interface is provided by a front-end entity to that
+shift engine.</p>
+
+<a name="usage" id="usage"></a>
+<h2>Usage</h2>
+<p>Using the <span class="code">wb_spimaster</span> component in your VHDL
+design is as easy as declaring and instantiating any other component. Below is
+the VHDL entity declaration of the component.</p>
+
+<div class="code">
+  <object data="example_spimaster.txt" type="text/plain" width="100%">
+    <p>Your browser apparently cannot display embedded frames. Try viewing the
+    example directly <a href="example_spimaster.txt">here</a>.</p>
+  </object>
+</div>
+
+<p>The design is customizable through a few generics, which are described in the
+following table.</p>
+
+<div class="datasheet">
+  <table class="datasheet">
+    <tr>
+      <th>Generic</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td class="variable">dat_sz</td>
+      <td class="description">Width of Wishbone data bus. This also determines
+      the size of the engine's registers. The module will probably not work if
+      this generic is set to a value &lt; 8.</td>
+    </tr>
+    <tr>
+      <td class="variable">slv_bits</td>
+      <td class="description">Determines how many SPI slaves are supported by
+      the module. The module will support <span class="code">(2 ^
+      slv_bits)</span> SPI slaves. Example: If the generic is set to 3, the
+      module will support up to eight SPI slaves. The module cannot support more
+      slaves than the value of the <span class="code">dat_sz</span>
+      generic.</td>
+    </tr>
+  </table>
+</div>
+
+<p>The module supports Wishbone classic read and write cycles. It will generate
+a response within one clock cycle. The response output, i.e. <span
+class="code">ack</span> or <span class="code">err</span> is asserted as long as
+the module's <span class="code">stb</span> input is active.  Because the module
+generates a response within one cycle, it does never drive the <span
+class="code">stall</span> output. Nevertheless, it should support Wishbone
+classic pipelined read and write cycles, too, but that hasn't been tested so
+far.</p>
+
+<a name="registers" id="registers" ></a>
+<h2>Registers</h2>
+<p>The module exposes four registers which are described in the table below.</p>
+<div class="datasheet">
+  <table class="datasheet">
+    <tr>
+      <th>Offset</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td class="variable">0x00</td>
+      <td class="name">Rx/Tx Data</td>
+      <td class="description">Data written to this register will be transferred
+      out of the SPI engine during the next transfer. Data shifted into the SPI
+      engine during the last transfer can be read from this register.</td>
+    </tr>
+    <tr>
+      <td class="variable">0x01</td>
+      <td class="name">Control</td>
+      <td class="description">SPI engine control registers. The meanings of the
+      bits are described in the table below.</td>
+    </tr>
+    <tr>
+      <td class="variable">0x02</td>
+      <td class="name">nSEL</td>
+      <td class="description">Value of the engine's SPI <span
+      class="code">nSEL</span> output pins.</td>
+    </tr>
+    <tr>
+      <td class="variable">0x03</td>
+      <td class="name">Divider</td>
+      <td class="description">SPI clock divider. The SPI clock is derived from
+      the logic clock and divided by this factor, i.e. setting this register to
+      a value of 8 will cause the SPI clock to run at 1/8 of the logic clock
+      frequency.</td>
+    </tr>
+  </table>
+</div>
+
+<p>The module's control register allows the user to adjust SPI parameters and
+control the transfer.</p>
+<div class="datasheet">
+  <table class="datasheet">
+    <tr>
+      <th>Bit No.</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td class="variable">0..2</td>
+      <td class="name">Count</td>
+      <td class="description">Determines how many bits will be shifted on the
+      next SPI transfer.</td>
+    </tr>
+    <tr>
+      <td class="variable">3</td>
+      <td class="name">n/a</td>
+      <td class="description">Reserved.</td>
+    </tr>
+    <tr>
+      <td class="variable">4</td>
+      <td class="name">CPOL</td>
+      <td class="description">Controls the SPI clock polarity (CPOL).</td>
+    </tr>
+    <tr>
+      <td class="variable">5</td>
+      <td class="name">CPHA</td>
+      <td class="description">Controls the SPI clock phase (CPHA).</td>
+    </tr>
+    <tr>
+      <td class="variable">6</td>
+      <td class="name">n/a</td>
+      <td class="description">Reserved.</td>
+    </tr>
+    <tr>
+      <td class="variable">7</td>
+      <td class="name">Start/Busy</td>
+      <td class="description">Setting this bit starts an SPI transfer. While the
+      SPI transfer is in progress, this bit will read back active. Once the SPI
+      transfer has completed, the bit is cleared. Attempts to set this bit while
+      already set, i.e. an SPI transfer is in progress, will cause an <span
+      class="code">err</span> response on the Wishbone bus.</td>
+    </tr>
+  </table>
+</div>
+
+<a name="download" id="download" ></a>
+<h2>Download</h2>
+<p>
+Below are the links to the VHDL file(s).</p>
+
+<ul>
+  <li>Shift Engine, <a href="../vhdl/shift_engine.vhd">shift_engine.vhd</a></li>
+  <li>Wishbone Interface, <a href="../vhdl/wb_spimaster.vhd">wb_spimaster.vhd</a></li>
+</ul>
+
+<a name="links" id="links"></a>
+<h2>Links</h2>
+<p>Here are a few links related to this project.</p>
+
+<ul>
+ <li>Wikipedia Article on the <a href="http://en.wikipedia.org/wiki/Wishbone_(computer_bus)">Wishbone Bus</a>.</li>
+ <li>The <a href="http://cdn.opencores.org/downloads/wbspec_b4.pdf">Wishbone Bus Specification</a>, Rev. B4</li>
+ <li>Wikipedia Article on the <a
+ href="http://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">Serial
+ Peripheral Interface Bus</a>.</li>
+</ul>
+
+
+
+    <a name="contact" id="contact"></a>
+    <h2>Contact</h2>
+    <p>Contact the author Philip Schulz by <a id="email">Email</a>.</p>
+ </div>
+
+ <div class="logo">
+   <div class="footer">&nbsp;</div>
+   <a class="logo" href="http://validator.w3.org/check?uri=referer">
+     <img class="logo" src="http://www.w3.org/Icons/valid-xhtml10-blue"
+       alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+   </a>
+   <a class="logo" href="http://jigsaw.w3.org/css-validator/">
+    <img class="logo" style="border:0;width:88px;height:31px"
+      src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+      alt="Valid CSS!" />
+   </a>
+ </div>
+
+ </body>
+</html>

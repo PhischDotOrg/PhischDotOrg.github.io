@@ -1,0 +1,501 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>
+    wb_switch - A Wishbone Bus Interconnect for FPGAs
+  </title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" media="screen" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" media="print" type="text/css" href="../css/print.css" />
+  <link rel="stylesheet" href="../wb_switch/" type="text/css" />
+
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+
+  
+
+  <script type="text/javascript">
+    /*
+     * If you're wondering what all this is about: I'm hoping that this will
+     * keep most web crawlers from harvesting my Email address while still
+     * giving nearly all users a "clickable" Email link.
+     */
+    function load() {
+      var menu_email = document.getElementById("menu_email");
+      var email = document.getElementById("email");
+
+      var menu_href = document.createAttribute("href");
+      var href = document.createAttribute("href");
+
+      var address = "mailto:";
+      address += "phs";
+      address += "@";
+      address += "deadc0";
+      address += ".";
+      address += "de"
+
+      menu_href.nodeValue=address;
+      href.nodeValue=address;
+
+      menu_email.setAttributeNode(menu_href);
+      if  (email) email.setAttributeNode(href);
+    }
+  </script>
+ </head>
+ <body onload="load()">
+
+ <div class="top_menu">
+   <h2 class="top_menu">Navigation</h2>
+   <ol class="top_menu">
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/">
+       Home
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="#Projects">
+       Projects
+      </a>
+     </span>
+
+      <ul class="top_submenu">
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/efiboot/index.html">efiboot</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/xc3s400a/index.html">FPGA</a>
+        </span>
+        <ul class="top_sub2menu">
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_gpio/index.html">gpio</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_i2c_slave/index.html">i2c_slave</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_spimaster/index.html">spimaster</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_switch/index.html">wb_switch</a>
+          </span>
+         </li>
+        </ul>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/glxiic/index.html">glxiic</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/loopinglouie/index.html">Looping Louie</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/obd2diag/index.html">OBD-II Diagnostics Tool</a>
+        </span>
+       </li>
+      </ul>
+    </li>
+
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/blog">
+       Blog
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/music">
+       Music
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="http://www.flickr.com/photos/deadc0de/">
+       Photos
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" id="menu_email">
+       Contact
+      </a>
+     </span>
+    </li>
+   </ol>
+ </div>
+
+ <div id="menu">
+  <h2 class="menu">Contents</h2>
+  <ul class="menu">
+   <li class="menu"><a href="#top">Top</a></li>
+<li class="menu"><a href="#overview">Overview</a></li>
+<li class="menu"><a href="#architecture">Architecture</a></li>
+<li class="menu"><a href="#usage">Usage</a></li>
+<li class="menu"><a href="#registers">Registers</a></li>
+<li class="menu"><a href="#masters">Master Ports</a></li>
+<li class="menu"><a href="#slaves">Slave Ports</a></li>
+<li class="menu"><a href="#download">Download</a></li>
+<li class="menu"><a href="#links">Links</a></li>
+
+
+    <li class="menu"><a href="#contact">Contact</a></li>
+   <li class="menu"><a href="#share">Share</a></li>
+  </ul>
+ </div>
+
+ <div id="content">
+   <a name="top" id="top"></a>
+<h1>wb_switch - A Wishbone Bus Interconnect for FPGAs</h1>
+<p>This is the project homepage for <span class="code">wb_switch</span>, a
+generic, multiplexer based interconnect component for the Wishbone bus, written
+in VHDL. It includes support for bus arbitration for multiple masters as well as
+address translation for multiple slaves.</p>
+
+<p>Last updated: <span class="code">$Date$</span>.</p>
+
+<a name="overview" id="overview"></a>
+<h2>Overview</h2>
+<p>&quot;Wishbone&quot; is a specification for a parallel bus system, primarily
+to be used as an on-chip bus to connect several independent logic blocks within
+one chip design. The Wishbone Bus uses a Master/Slave Concept where only
+&quot;Master&quot; Components may drive the bus whereas &quot;Slave&quot;
+components may only use the bus when instructed by a Master component. Also,
+there may be multiple Master and/or Slave devices present on the bus.</p>
+
+<p>One problem with multiple bus participants is that only one participant may
+drive the bus at any time. For slave participants, this is relatively easy since
+slaves may not use the bus when not addressed anyways (but care must be taken to
+not place two devices on the same bus address). However, multiple bus masters
+require arbitration so that only the one master to which the bus is granted
+drives the bus.</p>
+
+<p>There is another problem when designing a shared bus as outlined above inside
+a single chip, particularily an FPGA: Bus participants which may not drive the
+bus must neither drive a low, nor a high signal on the bus. Typically, this is
+done by setting the signal drivers to a &quot;High-Z&quot; state. However, there
+typically aren't any Tri-State buffers inside an FPGA, but only the drivers for
+the I/O Pins are Tri-State capable. Hence, when using this technique on an FPGA,
+the design tools are required to route the bus signals through the I/O Buffers,
+which is usually a pessimization with regards to the performance of the
+design.</p>
+
+<p><span class="code">wb_switch</span> solves those problems by introducing a
+switch logic based on multiplexers, a resource that is easily available in
+FPGAs. That way, each bus participant can be designed as if directly connected
+to a peer component.</p>
+
+<p>Because the performance of FPGA designs suffers from long unbuffered signal
+paths, the <span class="code">wb_switch</span> logic organizes its internal
+components in a pipelined logic. This does not increas the FPGA logic usage,
+because the required registers are present in the FPGA anyways (it would be a
+waste not to use them). However, this increases the latency between Wishbone
+masters and slaves. This doesn't impact the Wishbone throughput because
+pipelined transfers can be used.</p>
+
+<a name="architecture" id="architecture"></a>
+<h2>Architecture</h2>
+<p><span class="code">wb_switch</span> consists of four basic blocks: An
+arbiter, an address translator and two multiplexer components for masters and
+slaves. Except for the arbiter, the individual blocks implement filters, i.e.
+each component implements a Wishbone slave interface as well as a Wishbone
+master interface. Wishbone transfers seen on the slave interface are processed
+and then re-issued on the master interface. Similar to that, slave responses are
+forwarded from the master interface implementation to the slave interface
+implementation. The filters are daisy-chained together, forming a pipeline.
+Figure 1 below illustrates the architecture.</p>
+
+<div class="img">
+  <img src="BlockDiagram.png" alt="Illustration of the Architecture" />
+  <span class="img">Fig. 1: Architecture</span>
+</div>
+
+<p>It should be noted that the filters do their processing within one clock
+cycle. Therefore, both Wishbone classic read/write cycles as well as classic
+pipelined read/write cycles are supported. As required by the Wishbone
+specification, the <span class="code">stall</span> signal is not buffered.</p>
+
+<h3>Multiplexers</h3>
+<p>The multiplexer components place a master or slave on the wishbone bus,
+depending on the select signals driven by the arbiter or the address translator,
+respectively.</p>
+
+<p>All signals driven by all connected Wishbone Master components are routed
+into the master multiplexer, and reduced to one set of master-to-slave signals.
+Respectively, all slave driven signals are reduced to a single set of
+slave-to-master signals by the slave multiplexer.</p>
+
+<h3>Arbiter</h3>
+<p>The arbiter grants the bus to a master by driving the select signals of the
+master multiplexer. The current design uses a counter which steps unless the
+current master has taken the bus, i.e. drives <span class="code">cyc</span>.
+Hence, once a master has placed a transaction on the bus, the arbiter will not
+advance to the next master unless the active master releases the bus.</p>
+
+<p>On the other hand, this also means that the master must claim the bus by
+asserting the <span class="code">cyc</span> until the slave has acknowledged the
+cycle by asserting either <span class="code">ack</span>, <span
+class="code">rty</span> or <span class="code">err</span>.</p>
+
+<h3>Address Translator</h3>
+<p>The address translator component is responsible for routing the
+slave-to-master signals from the currently selected slave back to the active
+master. Also, it needs to take care that the <span class="code">stb</span>
+signal is only routed to the targeted slave. Furthermore, the address translator
+makes sure that no two slaves can respond to the same address on the wishbone
+bus.</p>
+
+<p>The current design uses the upper bits of the wishbone address to select the
+slave that is being addressed. While this reduces the address space available
+for a single slave, it allows all slaves to decode their addresses starting at
+zero.</p>
+
+<a name="usage" id="usage"></a>
+<h2>Usage</h2>
+<p>Using the <span class="code">wb_switch</span> component in your VHDL design
+is as easy as declaring and instantiating any other component. Below is the VHDL
+entity declaration of the component.</p>
+
+<div class="code">
+  <object data="example_switch.txt" type="text/plain" width="100%">
+    <p>Your browser apparently cannot display embedded frames. Try viewing the
+    example directly <a href="example_switch.txt">here</a>.</p>
+  </object>
+</div>
+
+<p>The design is customizable through generics, which are described in the
+following table.</p>
+
+<div class="datasheet">
+  <table class="datasheet">
+    <tr>
+      <th>Generic</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td class="variable">dat_sz</td>
+      <td class="description">Width of Wishbone data bus.</td>
+    </tr>
+    <tr>
+      <td class="variable">nib_sz</td>
+      <td class="description">Width of the Wishbone <span class="code">sel</span> signal.</td>
+    </tr>
+    <tr>
+      <td class="variable">addr_sz</td>
+      <td class="description">Width of the Wishbone address bus.</td>
+    </tr>
+    <tr>
+      <td class="variable">mstr_bits</td>
+      <td class="description">Determines the number of Wishbone masters that can
+      be connected to the switch. The number of supported Wishbone masters is
+      <span class="code">(2^mstr_bits)</span>.</td>
+    </tr>
+    <tr>
+      <td class="variable">slv_bits</td>
+      <td class="description">Determines the number of Wishbone slaves that can
+      be connected to the switch. The number of supported Wishbone slaves is
+      <span class="code">(2^slv_bits)</span>.</td>
+    </tr>
+  </table>
+</div>
+
+<a name="registers" id="registers" ></a>
+<h2>Registers</h2>
+<p>The module does not have any user accessible registers.</p>
+
+<a name="masters" id="masters" ></a>
+<h2>Master Ports</h2>
+<p>The <span class="code">wb_switch</span> module provides several Wishbone
+master ports through the use of vectors. The table below shows what Wishbone
+master signals are to be connected to what vector index, based on the assumption
+that master #n is to be connected.</p>
+
+<div class="datasheet">
+  <table class="datasheet">
+    <tr>
+      <th>Master Signal</th>
+      <th>Mux Master Port #n</th>
+    </tr>
+    <tr>
+      <td class="variable">cyc_o</td>
+      <td class="variable2">wb_mstr_cyc_i(n)</td>
+    </tr>
+    <tr>
+      <td class="variable">lock_o</td>
+      <td class="variable2">wb_mstr_lock_i(n)</td>
+    </tr>
+    <tr>
+      <td class="variable">stb_o</td>
+      <td class="variable2">wb_mstr_stb_i(n)</td>
+    </tr>
+    <tr>
+      <td class="variable">adr_o</td>
+      <td class="variable2">wb_mstr_adr_o((((n+1)*adr_sz)-1) downto (n*adr_sz))</td>
+    </tr>
+    <tr>
+      <td class="variable">we_o</td>
+      <td class="variable2">wb_mstr_we_i(n)</td>
+    </tr>
+    <tr>
+      <td class="variable">dat_o</td>
+      <td class="variable2">wb_mstr_dat_i((((n+1)*dat_sz)-1) downto (n*dat_sz))</td>
+    </tr>
+    <tr>
+      <td class="variable">sel_o</td>
+      <td class="variable2">wb_mstr_sel_i((((n+1)*nib_sz)-1) downto (n*nib_sz))</td>
+    </tr>
+    <tr>
+      <td class="variable">dat_i</td>
+      <td class="variable2">wb_mstr_dat_o((((n+1)*dat_sz)-1) downto (n*dat_sz))</td>
+    </tr>
+    <tr>
+      <td class="variable">ack_i</td>
+      <td class="variable2">wb_mstr_ack_o</td>
+    </tr>
+    <tr>
+      <td class="variable">rty_i</td>
+      <td class="variable2">wb_mstr_rty_o</td>
+    </tr>
+    <tr>
+      <td class="variable">err_i</td>
+      <td class="variable2">wb_mstr_err_o</td>
+    </tr>
+    <tr>
+      <td class="variable">stall_i</td>
+      <td class="variable2">wb_mstr_stall_o</td>
+    </tr>
+  </table>
+</div>
+
+<a name="slaves" id="slaves" ></a>
+<h2>Slave Ports</h2>
+<p>The <span class="code">wb_switch</span> module provides several Wishbone
+slave ports through the use of vectors. The table below shows what Wishbone
+slave signals are to be connected to what vector index, based on the assumption
+that slave #n is to be connected.</p>
+
+<div class="datasheet">
+  <table class="datasheet">
+    <tr>
+      <th>Slave Signal</th>
+      <th>Mux Slave Port #n</th>
+    </tr>
+    <tr>
+      <td class="variable">cyc_i</td>
+      <td class="variable2">wb_slv_cyc_o</td>
+    </tr>
+    <tr>
+      <td class="variable">lock_i</td>
+      <td class="variable2">wb_slv_lock_o</td>
+    </tr>
+    <tr>
+      <td class="variable">stb_i</td>
+      <td class="variable2">wb_slv_stb_o(n)</td>
+    </tr>
+    <tr>
+      <td class="variable">adr_i</td>
+      <td class="variable2">wb_slv_adr_o</td>
+    </tr>
+    <tr>
+      <td class="variable">we_i</td>
+      <td class="variable2">wb_slv_we_o</td>
+    </tr>
+    <tr>
+      <td class="variable">dat_i</td>
+      <td class="variable2">wb_slv_dat_o</td>
+    </tr>
+    <tr>
+      <td class="variable">sel_i</td>
+      <td class="variable2">wb_slv_sel_o</td>
+    </tr>
+    <tr>
+      <td class="variable">dat_o</td>
+      <td class="variable2">wb_slv_dat_i((((n+1)*dat_sz)-1) downto (n*dat_sz))</td>
+    </tr>
+    <tr>
+      <td class="variable">ack_o</td>
+      <td class="variable2">wb_slv_ack_i(n)</td>
+    </tr>
+    <tr>
+      <td class="variable">rty_o</td>
+      <td class="variable2">wb_slv_rty_i(n)</td>
+    </tr>
+    <tr>
+      <td class="variable">err_o</td>
+      <td class="variable2">wb_slv_err_i(n)</td>
+    </tr>
+    <tr>
+      <td class="variable">stall_o</td>
+      <td class="variable2">wb_slv_stall_i(n)</td>
+    </tr>
+  </table>
+</div>
+<a name="download" id="download" ></a>
+<h2>Download</h2>
+<p>
+Below are the links to the VHDL files of the four individual components, as well
+as the top component which integrates the four.</p>
+
+<ul>
+  <li>Wishbone Switch, <a href="../vhdl/wb_switch.vhd">wb_switch.vhd</a></li>
+  <li>Master Multiplexer, <a href="../vhdl/wb_master_mux.vhd">wb_master_mux.vhd</a></li>
+  <li>Slave Multiplexer, <a href="../vhdl/wb_slave_mux.vhd">wb_slave_mux.vhd</a></li>
+  <li>Bus Arbiter, <a href="../vhdl/wb_arbiter.vhd">wb_arbiter.vhd</a></li>
+  <li>Address Translator, <a href="../vhdl/wb_slave_sel.vhd">wb_slave_sel.vhd</a></li>
+</ul>
+
+
+<a name="links" id="links"></a>
+<h2>Links</h2>
+<p>Here are a few links related to this project.</p>
+
+<ul>
+ <li>Wikipedia Article on the <a href="http://en.wikipedia.org/wiki/Wishbone_(computer_bus)">Wishbone Bus</a>.</li>
+ <li>The <a href="http://cdn.opencores.org/downloads/wbspec_b4.pdf">Wishbone Bus Specification</a>, Rev. B4</li>
+</ul>
+
+
+
+    <a name="contact" id="contact"></a>
+    <h2>Contact</h2>
+    <p>Contact the author Philip Schulz by <a id="email">Email</a>.</p>
+ </div>
+
+ <div class="logo">
+   <div class="footer">&nbsp;</div>
+   <a class="logo" href="http://validator.w3.org/check?uri=referer">
+     <img class="logo" src="http://www.w3.org/Icons/valid-xhtml10-blue"
+       alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+   </a>
+   <a class="logo" href="http://jigsaw.w3.org/css-validator/">
+    <img class="logo" style="border:0;width:88px;height:31px"
+      src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+      alt="Valid CSS!" />
+   </a>
+ </div>
+
+ </body>
+</html>

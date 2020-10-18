@@ -1,0 +1,450 @@
+diff --git a/usr.sbin/i2c/i2c.8 b/usr.sbin/i2c/i2c.8
+index 2a144c3..cb016d9 100644
+--- a/usr.sbin/i2c/i2c.8
++++ b/usr.sbin/i2c/i2c.8
+@@ -1,5 +1,6 @@
+ .\"
+ .\" Copyright (C) 2008-2009 Semihalf, Michal Hajduk and Bartlomiej Sieka
++.\" Portions Copyright (C) 2011 Philip Schulz <phs@deadc0.de>
+ .\" All rights reserved.
+ .\"
+ .\" Redistribution and use in source and binary forms, with or without
+@@ -23,9 +24,10 @@
+ .\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ .\" SUCH DAMAGE.
+ .\"
+-.\" $FreeBSD$ 
++.\" $FreeBSD: src/usr.sbin/i2c/i2c.8,v 1.1.2.1.4.1 2010/06/14 02:09:06 kensmith Exp $ 
+ .\"
+-.Dd Jan 23, 2009
++
++.Dd Apr 4, 2011
+ .Dt I2C 8
+ .Os
+ .Sh NAME
+@@ -38,6 +40,18 @@
+ .Op Fl d Ar r|w
+ .Op Fl w Ar 0|8|16
+ .Op Fl o Ar offset
++.Op Fl p Ar pagesize
++.Op Fl c Ar count
++.Op Fl m Ar ss|rs|no
++.Op Fl b
++.Op Fl v
++.Nm
++.Cm -A Ar address
++.Op Fl f Ar device
++.Op Fl d Ar r|w
++.Op Fl w Ar 0|8|16
++.Op Fl o Ar offset
++.Op Fl p Ar pagesize
+ .Op Fl c Ar count
+ .Op Fl m Ar ss|rs|no
+ .Op Fl b
+@@ -61,7 +75,11 @@ I2C controller.
+ The options are as follows:
+ .Bl -tag -width ".Fl d Ar direction"
+ .It Fl a Ar address
+-7-bit address on the I2C device to operate on (hex).
++7-bit address on the I2C device to operate on (hex). Address is shifted left one
++bitand filled with read/write bit.
++.It Fl A Ar address
++8-bit address on the I2C device to operate on (hex). Address is not shifted and
++instead masked with read/write bit.
+ .It Fl b
+ binary mode - when performing a read operation, the data read from the device
+ is output in binary format on stdout; when doing a write, the binary data to
+@@ -83,6 +101,8 @@ using selected addresses 'a:b:c'. This option is available only when "-s" is
+ used.
+ .It Fl o Ar offset
+ offset within the device for data transfer (hex).
++.It Fl p Ar pagesize
++page size of device. The transfer is split up in chunks of the given size. 
+ .It Fl r
+ reset the controller.
+ .It Fl s
+@@ -135,6 +155,10 @@ Read 8 bytes of data from device at address 0x56 (e.g., an EEPROM):
+ .Pp
+ i2c -a 0x56 -d r -c 8
+ .It
++The same as above using eight bit address notation:
++.Pp
++i2c -A 0xac -d r -c 8
++.It
+ Write 16 bytes of data from file data.bin to device 0x56 at offset 0x10:
+ .Pp
+ i2c -a 0x56 -d w -c 16 -o 0x10 -b < data.bin
+diff --git a/usr.sbin/i2c/i2c.c b/usr.sbin/i2c/i2c.c
+index c0b3663..64923ad 100644
+--- a/usr.sbin/i2c/i2c.c
++++ b/usr.sbin/i2c/i2c.c
+@@ -1,5 +1,6 @@
+ /*-
+  * Copyright (C) 2008-2009 Semihalf, Michal Hajduk and Bartlomiej Sieka
++ * Portions Copyright (C) 2011 Philip Schulz <phs@deadc0.de>
+  * All rights reserved.
+  *
+  * Redistribution and use in source and binary forms, with or without
+@@ -59,6 +60,7 @@ struct options {
+ 	char	dir;
+ 	uint32_t	addr;
+ 	uint32_t	off;
++	uint32_t	pgsz;
+ };
+ 
+ struct skip_range {
+@@ -71,7 +73,10 @@ usage(void)
+ {
+ 
+ 	fprintf(stderr, "usage: %s -a addr [-f device] [-d [r|w]] [-o offset] "
+-	    "[-w [0|8|16]] [-c count] [-m [ss|rs|no]] [-b] [-v]\n",
++	    "[-p pgsize] [-w [0|8|16]] [-c count] [-m [ss|rs|no]] [-b] [-v]\n",
++	    getprogname());
++	fprintf(stderr, "       %s -A addr [-f device] [-d [r|w]] [-o offset] "
++	    "[-p pgsize] [-w [0|8|16]] [-c count] [-m [ss|rs|no]] [-b] [-v]\n",
+ 	    getprogname());
+ 	fprintf(stderr, "       %s -s [-f device] [-n skip_addr] -v\n",
+ 	    getprogname());
+@@ -254,7 +259,7 @@ static int
+ i2c_write(char *dev, struct options i2c_opt, char *i2c_buf)
+ {
+ 	struct iiccmd cmd;
+-	int ch, i, error, fd, bufsize;
++	int ch, i, error, fd, bufsize, offs = 0;
+ 	char *err_msg, *buf;
+ 
+ 	/*
+@@ -278,78 +283,84 @@ i2c_write(char *dev, struct options i2c_opt, char *i2c_buf)
+ 		err(1, "open failed");
+ 	}
+ 
+-	/*
+-	 * Write offset where the data will go
+-	 */
+-	cmd.slave = i2c_opt.addr;
+-	error = ioctl(fd, I2CSTART, &cmd);
+-	if (error == -1) {
+-		err_msg = "ioctl: error sending start condition";
+-		goto err1;
+-	}
+-
+-	if (i2c_opt.width) {
+-		bufsize = i2c_opt.width / 8;
+-		buf = prepare_buf(bufsize, i2c_opt.off);
+-		if (buf == NULL) {
+-			err_msg = "error: offset malloc";
++	do {
++		/*
++		 * Write offset where the data will go
++		 */
++		cmd.slave = i2c_opt.addr & ~0x01;
++		error = ioctl(fd, I2CSTART, &cmd);
++		if (error == -1) {
++			err_msg = "ioctl: error sending start condition";
+ 			goto err1;
+ 		}
+ 
+-		cmd.count = bufsize;
+-		cmd.buf = buf;
++		if (i2c_opt.width) {
++			bufsize = i2c_opt.width / 8;
++			buf = prepare_buf(bufsize, i2c_opt.off + offs);
++			if (buf == NULL) {
++				err_msg = "error: offset malloc";
++				goto err1;
++			}
++
++			cmd.count = bufsize;
++			cmd.buf = buf;
++			error = ioctl(fd, I2CWRITE, &cmd);
++			free(buf);
++			if (error == -1) {
++				err_msg = "ioctl: error when write offset";
++				goto err1;
++			}
++		}
++
++		/* Mode - stop start */
++		if (i2c_opt.mode == I2C_MODE_STOP_START) {
++			cmd.slave = i2c_opt.addr;
++			error = ioctl(fd, I2CSTOP, &cmd);
++			if (error == -1) {
++				err_msg = "ioctl: error sending stop condition";
++				goto err2;
++			}
++			cmd.slave = i2c_opt.addr;
++			error = ioctl(fd, I2CSTART, &cmd);
++			if (error == -1) {
++				err_msg = "ioctl: error sending start "
++				    "condition";
++				goto err1;
++			}
++		}
++		/* Mode - repeated start */
++		if (i2c_opt.mode == I2C_MODE_REPEATED_START) {
++			cmd.slave = i2c_opt.addr & ~0x01;
++			error = ioctl(fd, I2CRPTSTART, &cmd);
++			if (error == -1) {
++				err_msg = "ioctl: error sending repeated start "
++				    "condition";
++				goto err1;
++			}
++		}
++
++		/*
++		 * Write the data
++		 */
++		cmd.count = i2c_opt.count - offs;
++		if (i2c_opt.pgsz && (cmd.count > i2c_opt.pgsz))
++			cmd.count = i2c_opt.pgsz;
++		cmd.buf = i2c_buf + offs;
++		offs += cmd.count;
++		cmd.last = 1;
++
+ 		error = ioctl(fd, I2CWRITE, &cmd);
+-		free(buf);
+ 		if (error == -1) {
+-			err_msg = "ioctl: error when write offset";
++			err_msg = "ioctl: error when write";
+ 			goto err1;
+ 		}
+-	}
+ 
+-	/* Mode - stop start */
+-	if (i2c_opt.mode == I2C_MODE_STOP_START) {
+-		cmd.slave = i2c_opt.addr;
+ 		error = ioctl(fd, I2CSTOP, &cmd);
+ 		if (error == -1) {
+ 			err_msg = "ioctl: error sending stop condition";
+ 			goto err2;
+ 		}
+-		cmd.slave = i2c_opt.addr;
+-		error = ioctl(fd, I2CSTART, &cmd);
+-		if (error == -1) {
+-			err_msg = "ioctl: error sending start condition";
+-			goto err1;
+-		}
+-	}
+-	/* Mode - repeated start */
+-	if (i2c_opt.mode == I2C_MODE_REPEATED_START) {
+-		cmd.slave = i2c_opt.addr;
+-		error = ioctl(fd, I2CRPTSTART, &cmd);
+-		if (error == -1) {
+-			err_msg = "ioctl: error sending repeated start "
+-			    "condition";
+-			goto err1;
+-		}
+-	}
+-
+-	/*
+-	 * Write the data
+-	 */
+-	cmd.count = i2c_opt.count;
+-	cmd.buf = i2c_buf;
+-	cmd.last = 0;
+-	error = ioctl(fd, I2CWRITE, &cmd);
+-	if (error == -1) {
+-		err_msg = "ioctl: error when write";
+-		goto err1;
+-	}
+-	cmd.slave = i2c_opt.addr;
+-	error = ioctl(fd, I2CSTOP, &cmd);
+-	if (error == -1) {
+-		err_msg = "ioctl: error sending stop condition";
+-		goto err2;
+-	}
+-
++	} while (i2c_opt.count - offs);
+ 	close(fd);
+ 	return (0);
+ 
+@@ -370,7 +381,7 @@ static int
+ i2c_read(char *dev, struct options i2c_opt, char *i2c_buf)
+ {
+ 	struct iiccmd cmd;
+-	int i, fd, error, bufsize;
++	int fd, error, bufsize, offs = 0;
+ 	char *err_msg, data = 0, *buf;
+ 
+ 	fd = open(dev, O_RDWR);
+@@ -379,70 +390,80 @@ i2c_read(char *dev, struct options i2c_opt, char *i2c_buf)
+ 
+ 	bzero(&cmd, sizeof(cmd));
+ 
+-	if (i2c_opt.width) {
+-		cmd.slave = i2c_opt.addr;
++	do {
++		if (i2c_opt.width) {
++			cmd.slave = i2c_opt.addr & ~0x01;
++			cmd.count = 1;
++			cmd.last = 0;
++			cmd.buf = &data;
++			error = ioctl(fd, I2CSTART, &cmd);
++			if (error == -1) {
++				err_msg = "ioctl: error sending start "
++				  "condition";
++				goto err1;
++			}
++			bufsize = i2c_opt.width / 8;
++			buf = prepare_buf(bufsize, i2c_opt.off + offs);
++			if (buf == NULL) {
++				err_msg = "error: offset malloc";
++				goto err1;
++			}
++
++			cmd.count = bufsize;
++			cmd.buf = buf;
++			cmd.last = 0;
++			error = ioctl(fd, I2CWRITE, &cmd);
++			free(buf);
++			if (error == -1) {
++				err_msg = "ioctl: error when write offset";
++				goto err1;
++			}
++
++			if (i2c_opt.mode == I2C_MODE_STOP_START) {
++				cmd.slave = i2c_opt.addr;
++				error = ioctl(fd, I2CSTOP, &cmd);
++				if (error == -1)
++					goto err2;
++			}
++		}
++		cmd.slave = i2c_opt.addr | 0x01;
+ 		cmd.count = 1;
+ 		cmd.last = 0;
+ 		cmd.buf = &data;
+-		error = ioctl(fd, I2CSTART, &cmd);
+-		if (error == -1) {
+-			err_msg = "ioctl: error sending start condition";
+-			goto err1;
+-		}
+-		bufsize = i2c_opt.width / 8;
+-		buf = prepare_buf(bufsize, i2c_opt.off);
+-		if (buf == NULL) {
+-			err_msg = "error: offset malloc";
+-			goto err1;
++		if (i2c_opt.mode == I2C_MODE_STOP_START) {
++			error = ioctl(fd, I2CSTART, &cmd);
++			if (error == -1) {
++				err_msg = "ioctl: error sending start "
++				    "condition";
++				goto err1;
++			}
++		} else if (i2c_opt.mode == I2C_MODE_REPEATED_START) {
++			error = ioctl(fd, I2CRPTSTART, &cmd);
++			if (error == -1) {
++				err_msg = "ioctl: error sending repeated "
++				    "start condition";
++				goto err1;
++			}
+ 		}
+ 
+-		cmd.count = bufsize;
+-		cmd.buf = buf;
+-		cmd.last = 0;
+-		error = ioctl(fd, I2CWRITE, &cmd);
+-		free(buf);
+-		if (error == -1) {
+-			err_msg = "ioctl: error when write offset";
+-			goto err1;
+-		}
++		cmd.buf     = i2c_buf + offs;
++		cmd.count   = i2c_opt.count - offs;
++	        cmd.last    = 1;
++		if (i2c_opt.pgsz && (cmd.count > i2c_opt.pgsz))
++			cmd.count = i2c_opt.pgsz;
+ 
+-		if (i2c_opt.mode == I2C_MODE_STOP_START) {
+-			cmd.slave = i2c_opt.addr;
+-			error = ioctl(fd, I2CSTOP, &cmd);
+-			if (error == -1)
+-				goto err2;
+-		}
+-	}
+-	cmd.slave = i2c_opt.addr;
+-	cmd.count = 1;
+-	cmd.last = 0;
+-	cmd.buf = &data;
+-	if (i2c_opt.mode == I2C_MODE_STOP_START) {
+-		error = ioctl(fd, I2CSTART, &cmd);
+-		if (error == -1) {
+-			err_msg = "ioctl: error sending start condition";
+-			goto err1;
+-		}
+-	} else if (i2c_opt.mode == I2C_MODE_REPEATED_START) {
+-		error = ioctl(fd, I2CRPTSTART, &cmd);
+-		if (error == -1) {
+-			err_msg = "ioctl: error sending repeated start "
+-			    "condition";
+-			goto err1;
+-		}
+-	}
+-	error = ioctl(fd, I2CSTOP, &cmd);
+-	if (error == -1)
+-		goto err2;
++		offs += cmd.count;
+ 
+-	for (i = 0; i < i2c_opt.count; i++) {
+-		error = read(fd, &i2c_buf[i], 1);
++		error = ioctl(fd, I2CREAD, &cmd);
+ 		if (error == -1) {
+ 			err_msg = "ioctl: error while reading";
+ 			goto err1;
+ 		}
+-	}
+ 
++		error = ioctl(fd, I2CSTOP, &cmd);
++		if (error == -1)
++			goto err2;
++	} while (i2c_opt.count - offs);
+ 	close(fd);
+ 	return (0);
+ 
+@@ -489,10 +510,21 @@ main(int argc, char** argv)
+ 	i2c_opt.reset = 0;	/* no bus reset */
+ 	i2c_opt.mode = I2C_MODE_NOTSET;
+ 
+-	while ((ch = getopt(argc, argv, "a:f:d:o:w:c:m:n:sbvrh")) != -1) {
++	while ((ch = getopt(argc, argv, "A:a:f:d:o:p:w:c:m:n:sbvrh")) != -1) {
+ 		switch(ch) {
++		case 'A':
+ 		case 'a':
+-			i2c_opt.addr = (strtoul(optarg, 0, 16) << 1);
++                        if (ch == 'a')
++			        i2c_opt.addr = (strtoul(optarg, 0, 16) << 1);
++                        else
++			        i2c_opt.addr = strtoul(optarg, 0, 16);
++
++			if (i2c_opt.addr == 0 && errno == EINVAL)
++				i2c_opt.addr_set = 0;
++			else
++				i2c_opt.addr_set = 1;
++			break;
++			i2c_opt.addr = strtoul(optarg, 0, 16);
+ 			if (i2c_opt.addr == 0 && errno == EINVAL)
+ 				i2c_opt.addr_set = 0;
+ 			else
+@@ -509,6 +541,11 @@ main(int argc, char** argv)
+ 			if (i2c_opt.off == 0 && errno == EINVAL)
+ 				error = 1;
+ 			break;
++		case 'p':
++			i2c_opt.pgsz = strtoul(optarg, 0, 0);
++			if (i2c_opt.pgsz == 0 && errno == EINVAL)
++				error = 1;
++			break;
+ 		case 'w':
+ 			i2c_opt.width = atoi(optarg);
+ 			break;
+@@ -576,7 +613,7 @@ main(int argc, char** argv)
+ 	if (i2c_opt.verbose)
+ 		fprintf(stderr, "dev: %s, addr: 0x%x, r/w: %c, "
+ 		    "offset: 0x%02x, width: %u, count: %u\n", dev,
+-		    i2c_opt.addr >> 1, i2c_opt.dir, i2c_opt.off,
++		    i2c_opt.addr, i2c_opt.dir, i2c_opt.off,
+ 		    i2c_opt.width, i2c_opt.count);
+ 
+ 	if (i2c_opt.scan)
+-- 
+1.7.4.1
+

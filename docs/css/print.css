@@ -1,0 +1,91 @@
+/*
+ * Copyright (c) 2008-2013 Philip Schulz <phs@phisch.org>
+ *
+ * Color Scheme is:
+ *  - Blue (Dark):     #39618F
+ *  - Blue (Medium):   #4779B3
+ *  - Blue (Light):    #5999E3
+ *
+ *  - Green (Dark):    #709E4E
+ *  - Green (Medium):  #82B65B
+ *  - Green (Light):   #A4E773
+ *
+ *  - Grey (Dark):     #4D4D4D
+ *  - Grey (Medium):   #B3B3B3
+ *  - Grey (Light):    #E6E6E6
+ */
+
+@import "common.css";
+@import "datasheet.css";
+
+div.top_menu {
+    display: none;
+}
+
+div.internal_menu {
+    display: none;
+}
+
+div.share {
+    display: none;
+}
+
+div#content {
+	margin-top: 2em;	
+	background-color: white;
+}
+
+div#menu {
+	background-color: white;
+}
+
+h2.menu {
+	visibility: visible;
+}
+
+ul.menu {
+	list-style-type: none;
+}
+
+div.logo {
+	display: none;
+}
+
+a.logo:hover {
+	border: none;
+}
+
+img.logo {
+	vertical-align: middle;
+	border-style: none;
+	padding-left: 1em;
+	padding-bottom: 1em;
+}
+
+div.footer {
+	display: none;
+}
+
+a.impressum_title {
+	font-weight: bold;
+	color: #B3B3B3;
+}
+
+div#impressum {
+	display: block;
+	visibility: visible;
+
+	border-top: 1px dashed #4d4d4d;
+	margin-top: 2em;	
+	background-color: white;
+
+	font-size: xx-small;
+}
+
+h1.impressum_title {
+	margin-right: 1em;
+	font-size: xx-small;
+	font-style: italic;
+	display: inline;
+}
+

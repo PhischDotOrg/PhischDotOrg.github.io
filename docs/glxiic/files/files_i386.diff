@@ -1,0 +1,16 @@
+diff --git a/sys/conf/files.i386 b/sys/conf/files.i386
+index 5baf2fc..75148bc 100644
+--- a/sys/conf/files.i386
++++ b/sys/conf/files.i386
+@@ -398,3 +398,8 @@ x86/x86/mptable.c		optional apic native
+ x86/x86/mptable_pci.c		optional apic pci
+ x86/x86/msi.c			optional apic pci
+ x86/x86/nexus.c			standard
++
++dev/glx/glx.c                   optional glx
++dev/glx/glx_isab.c              optional glx
++
++
+-- 
+1.7.4.1
+

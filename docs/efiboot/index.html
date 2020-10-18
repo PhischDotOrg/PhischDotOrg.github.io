@@ -1,0 +1,605 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>
+    efiboot - An UEFI payload for coreboot
+  </title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" media="screen" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" media="print" type="text/css" href="../css/print.css" />
+  <link rel="stylesheet" href="../efiboot/" type="text/css" />
+
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+
+  
+
+  <script type="text/javascript">
+    /*
+     * If you're wondering what all this is about: I'm hoping that this will
+     * keep most web crawlers from harvesting my Email address while still
+     * giving nearly all users a "clickable" Email link.
+     */
+    function load() {
+      var menu_email = document.getElementById("menu_email");
+      var email = document.getElementById("email");
+
+      var menu_href = document.createAttribute("href");
+      var href = document.createAttribute("href");
+
+      var address = "mailto:";
+      address += "phs";
+      address += "@";
+      address += "deadc0";
+      address += ".";
+      address += "de"
+
+      menu_href.nodeValue=address;
+      href.nodeValue=address;
+
+      menu_email.setAttributeNode(menu_href);
+      if  (email) email.setAttributeNode(href);
+    }
+  </script>
+ </head>
+ <body onload="load()">
+
+ <div class="top_menu">
+   <h2 class="top_menu">Navigation</h2>
+   <ol class="top_menu">
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/">
+       Home
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="#Projects">
+       Projects
+      </a>
+     </span>
+
+      <ul class="top_submenu">
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/efiboot/index.html">efiboot</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/xc3s400a/index.html">FPGA</a>
+        </span>
+        <ul class="top_sub2menu">
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_gpio/index.html">gpio</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_i2c_slave/index.html">i2c_slave</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_spimaster/index.html">spimaster</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_switch/index.html">wb_switch</a>
+          </span>
+         </li>
+        </ul>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/glxiic/index.html">glxiic</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/loopinglouie/index.html">Looping Louie</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/obd2diag/index.html">OBD-II Diagnostics Tool</a>
+        </span>
+       </li>
+      </ul>
+    </li>
+
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/blog">
+       Blog
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/music">
+       Music
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="http://www.flickr.com/photos/deadc0de/">
+       Photos
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" id="menu_email">
+       Contact
+      </a>
+     </span>
+    </li>
+   </ol>
+ </div>
+
+ <div id="menu">
+  <h2 class="menu">Contents</h2>
+  <ul class="menu">
+   <li class="menu"><a href="#home">Top</a></li>
+<li class="menu"><a href="#architecture">Architecture</a></li>
+<li class="menu"><a href="#implementation">Implementation</a></li>
+<li class="menu"><a href="#screenshots">Screenshots</a></li>
+<li class="menu"><a href="#download">Download</a></li>
+<li class="menu"><a href="#hacking">Hacking</a></li>
+<li class="menu"><a href="#links">Links</a></li>
+
+
+    <li class="menu"><a href="#contact">Contact</a></li>
+   <li class="menu"><a href="#share">Share</a></li>
+  </ul>
+ </div>
+
+ <div id="content">
+   <a name="home" id="home"></a>
+<h1>efiboot - An UEFI payload for coreboot</h1>
+<p>This is the project homepage for efiboot, a project that aims to build an
+UEFI payload for coreboot. The website describes the various components that
+make up efiboot and also how an UEFI payload can be built and packaged for use
+with coreboot. So far, the project has not been tested on real hardware but
+instead, QEMU has been used for development and testing.</p>
+
+<p>Last updated: <span class="code">$Date$</span>.</p>
+
+<h3>Updates</h3>
+<h4>Jan 22nd, 2013</h4>
+<p>Fixed the output from the DXE Core and updated the
+&quot;screenshot&quot;.</p>
+
+<h4>Jan 21st, 2013</h4>
+<p>Add a new &quot;screenshot&quot; and information on how to interpret it.</p>
+
+<h4>Jan 20th, 2013</h4>
+<p>Re-work the build instructions to reflect recent check-outs of the TianoCore
+tree. Also, attempt to document some parts of the CorebootPkg.</p>
+
+<h4>Jan 5th, 2013</h4>
+<p>HTML changes related to my home-grown &quot;CMS.&quot;</p>
+
+<a name="architecture" id="architecture"></a>
+<h2>Architecture</h2>
+<h3>Overview</h3>
+<p>A three layer approach is taken. The bottom layer is made up of coreboot in
+an unmodified version. Its task is to initialize and gather information about
+the hardware in the system. When coreboot has completed execution, it hands
+off control to a payload, the middle layer of the architecture. </p>
+
+<p>The payload is efiload, a loader for the upper layer. The loader detects
+and parses the coreboot tables and converts the information encoded in the
+tables into a form understood by the UEFI components. Then, it loads and
+starts the UEFI components.</p>
+
+<div class="img">
+  <img src="arch.png" alt="Illustration of the Architecture" />
+  <span class="img">Fig. 1: Architecture</span>
+</div>
+
+<p>The third layer is composed of the UEFI components. The design and
+architecture of the UEFI components is dictated by the UEFI specification and
+the PI architecture. </p>
+
+<p>Figure 1 above illustrates the architecture on a high level. It should be
+noted that the DXE Core presents the UEFI interfaces to any upper
+layers, e.g. an operating system, and completely hides the bottom layers. In
+fact, when the DXE Core has been started, the bottom layers do not exist
+anymore.</p>
+
+<h3>The corebooot layer</h3>
+<p>Coreboot performs platform initialization and starts a so-called
+&quot;payload&quot; after the initialization phase. The payload needs to be a
+standard ELF file, which is loaded at its linked address and then executed.
+Coreboot passes information about the system, like e.g. memory size, to the
+payload in the coreboot tables.</p>
+
+<h3>The efiload layer</h3>
+<p>The UEFI components expect that some basic information about the system is
+passed in a list of Hand-off Blocks (HOBs). The HOB list must be created by
+the efiload component from the information found in the coreboot tables. Most
+imporantly, information about the memory layout and the location of the UEFI
+Firmware Volume must be encoded in the HOBs.</p>
+
+<h3>The UEFI layer</h3>
+<p>The UEFI components implement the DXE phase of the PI architecture. In the
+DXE phase, the so-called DXE core starts several independent DXE drivers which
+implement the UEFI Boot Services and the UEFI Runtime Services. When all DXE
+drivers in the UEFI Firmware Volume have been executed, UEFI drivers and
+applications are started. Those drivers and applications make use of the UEFI
+services to fully initialize the system. As drivers execute, new hardware may
+be discovered. Information about hardware is passed to the DXE core via the
+UEFI Boot Services. The DXE core takes that information and builds a device
+tree representation of the system hardware. When a boot loader or an operating
+system is started, it may query said information through the UEFI system
+table.</p>
+
+<a name="implementation" id="implementation" ></a>
+<h2>Implementation</h2>
+
+<h3>... of coreboot</h3>
+<p>Coreboot is a separate and independent project. No changes to coreboot are
+required for efiboot.</p>
+
+<h3>... of efiload</h3>
+<p>The efiload component is build with the help of libpayload which is a
+library part of the coreboot project. The library implements a limited set of
+the standard C library functions. It also implements start-up code so that an
+application can be written to start at its <span class="code">main()</span>
+function instead of worrying about the low-level details. Efiload makes use of
+those facilities and uses libpayload data structures to locate and parse the
+coreboot tables. This latter task can be regarded as the input path of
+efiload.</p>
+
+<p>The output path of efiload uses data structures implemented as part of the
+TianoCore EDK2 project. Those structures are documented in the UEFI and PI
+specifications and define how a Hand-off Block (HOB) should look like. Efiload
+transforms the coreboot tables into a HOB list.</p>
+
+<p>The HOB list produced by efiload contains the following HOBs:</p>
+<ul>
+  <li>The HOB List Header, described by a structure of type <span
+  class="code">EFI_HOB_HANDOFF_INFO_TABLE</span>. This HOB describes the
+  basic memory layout of the system, i.e. lowest and highest addresses along
+  with information on what memory is available to the DXE phase.</li>
+  <li>A Firmware Volume HOB, encoded in a structure of type <span
+  class="code">EFI_HOB_FIRMWARE_VOLUME</span>. This HOB encodes information
+  on where the Firmware Volume (FV) of the boot flash resides. Because the
+  FV is encapsulated in the coreboot flash image, the efiload component
+  shadows the firmware volume to main memory and stores information about
+  the shadow copy only in the HOB. Currently, the location of the shadow
+  copy is defined to be the highest memory range available, e.g. an 8 MByte
+  flash image will be shadowed to 8 MBytes below the top of physical memory.</li>
+  <li>One or more resource description HOBs which are structures of type
+  <span class="code">EFI_HOB_RESOURCE_DESCRIPTOR</span>. The resource
+  description HOBs are used to pass information about the location of
+  individual, possibly non-continuous blocks of physical system memory.
+  Because the Firmware Volume is shadowed below the top of physical memory,
+  the resource descriptor HOBs currently do not announce that memory region
+  to the DXE phase.</li>
+  <li>One memory allocation HOB of type <span
+  class="code">EFI_HOB_MEMORY_ALLOCATION_MODULE</span>. The HOB is used to
+  record the memory allocation of the loaded DXE core ELF image.</li>
+  <li>One CPU HOB, i.e. a <span class="code">EFI_HOB_CPU</span> structure,
+  that describes the capabilities of the CPU, namely number of address lines
+  and the size of the CPUs I/O space. Currently, the information passed in
+  this HOB is hard-coded to the i386 values of 32 address lines and 16 Bit
+  wide I/O addresses.</li>
+  <li>The HOB list is terminated by a HOB of type <span
+  class="code">EFI_HOB_TYPE_END_OF_HOB_LIST</span> which consists only of a
+  generic HOB header, a structure of type <span
+  class="code">EFI_HOB_GENERIC_HEADER</span>.</li>
+  
+</ul>
+
+<p>When efiload is done with the data transformation, it locates the DXE core
+in a UEFI Firmware Volume (FV). For ease of implementation and testing, the FV
+is appended as a binary section to the efiload binary. This allows the efiload
+code to address the size and location of the FV using symbols, i.e. simple C
+pointers. The code in efiload that searches the FV also makes use of data
+structures implemented in the TianoCore EDK2 project.</p>
+
+<h3>... of the UEFI layer</h3>
+<p>The UEFI Layer is implemented using the code provided by the TianoCore EDK
+II project. The EDK II code implements all three Platform Initialization (PI)
+phases SEC, PEI and DXE mandated by the UEFI-related Platform Initialization
+Specification. For the efiboot project, only the DXE phase is relevant. All
+other code is not used.</p>
+
+<p>The code contained in the EDK II itself can probably be used without
+modifications.  However, the CorebootPkg has been added to package and enhance
+the EDK II code.  Also, to aid debugging, the EDK II build tools have been
+modified to work with ELF images instead of PE32+ binaries. By default, the
+TianoCore tools will work with ELF images, but convert them to a PE32+ binary
+before placing them into the firmware flash.</p>
+
+<h3>Boot Flash Layout</h3>
+<p>Coreboot expects the payload to be known at compile time. This is required
+because the coreboot build process compresses the payload and packages it
+along with the coreboot code in a flash image.</p>
+
+<p>The UEFI specification and the implementation of the UEFI components
+dictate that all of the UEFI components are stored in an UEFI Firmware Volume
+(FV), a special format for a kind of file system in the firmware flash.</p>
+
+<div class="img">
+  <img src="flash.png" alt="Illustration of the Boot Flash Layout" />
+  <span class="img">Fig. 2: Boot Flash Layout</span>
+</div>
+
+<p>In order to fulfill both somewhat contradicting requirements, the UEFI
+Firmware Volume is encapsuled in the coreboot payload at compile time. At
+runtime, the efiload layer extracts the UEFI Firmware Volume and shadows it to
+a memory location. This means, the coreboot build process is used to assemble
+a bootable flash image and hence the boot flash layout follows the coreboot
+guidelines. Also, the UEFI components will always work on a UEFI Firmware
+Volume shadowed into system memory.</p>
+
+<a name="screenshots" id="screenshots" ></a>
+<h2>Screenshots</h2>
+<p>Because coreboot, efiload and the UEFI code produce console only output,
+the &quot;screenshot&quot; is presented in text-only format.</p>
+
+<div class="code">
+  <object data="screenshot.txt" type="text/plain" width="100%">
+    <p>Your browser apparently cannot display embedded frames. Try viewing the
+    &quot;screenshot&quot; directly <a href="screenshot.txt">here</a>.</p>
+  </object>
+</div>
+
+<p>The first line printed by efiload is:</p>
+<div class="code">
+  UEFI Loader started [0x100000-0x24c06f]
+</div>
+<p>Everything printed before that line is emitted by coreboot.</p>
+
+<p>Control is handed over to the DXE core after efiload printed the following
+line:</p>
+<div class="code">
+  Handing control to DXE core...
+</div>
+
+<p>All output after that comes from the EDK II code. As you can see, the DXE
+core starts up and eventually aborts due to a failed assertion. This is
+because the Firmware Volume (FV) used in the test cycle does not contain any
+other modules than the DXE core itself. Consequently, the DXE core aborts
+because modules that are mandatory in order to provide all boot services
+demanded by UEFI are missing.</p>
+
+<p>There are a lot of messages from the <span
+class="code">elf_lookup_symbol()</span> method like the one below. Those seem to
+be harmless. They disappear if the output ELF image isn't stripped as part of
+the build. To do that, adjust <span class="code">Conf/build_rule.txt</span> and
+remove the <span class="code">--strip-unneeded</span> parameter from the <span
+class="code">objdump</span> call.</p>
+
+<div class="code">
+elf_lookup_symbol(): Failed to look up symbol 1!
+</div>
+
+<p>In the <a href="screenshot_2013.txt">previous &quot;screenshot&quot;</a>
+published here, output from the EDK II code was not shown. This was because a
+few variables controlling debug output weren't set properly during the
+build.</p>
+
+<p>A remote GDB session however revealed that the DXE core does in fact run to
+the point where it attempts to jump into the &quot;Boot Device Selection&quot;
+protocol:</p>
+
+<div class="code">
+(gdb) c
+<br />Continuing.
+<br />^C
+<br />Program received signal SIGINT, Interrupt.
+<br />0x003155fe in CpuDeadLoop ()
+<br />    at MdePkg/Library/BaseLib/CpuDeadLoop.c:37
+<br />37        for (Index = 0; Index == 0;);
+<br />(gdb) bt
+<br />#0  0x003155fe in CpuDeadLoop ()
+<br />    at MdePkg/Library/BaseLib/CpuDeadLoop.c:37
+<br />#1  0x00301077 in DxeMain (HobStart=0x3eb4010)
+<br />    at MdeModulePkg/Core/Dxe/DxeMain/DxeMain.c:481
+<br />#2  0x003005c8 in ProcessModuleEntryPointList (HobStart=0x207000)
+<br />    at Build/Coreboot/DEBUG_ELFGCC/IA32/MdeModulePkg/Core/Dxe/DxeMain/DEBUG/AutoGen.c:380
+<br />#3  0x00300019 in _ModuleEntryPoint ()
+<br />#4  0x00103e31 in ?? ()
+<br />#5  0x00100d73 in ?? ()
+<br />#6  0x00100051 in ?? ()
+<br />#7  0x820fd045 in ?? ()
+<br />#8  0x00000000 in ?? ()
+<br />(gdb)
+</div>
+
+<p>To start QEMU in a way that lets you attach the debugger, use the following
+command (on Ubuntu 12.10) in the coreboot build directory:</p>
+<div class="code">
+$ qemu-system-i386 -L . -bios coreboot.rom -nographic -m 64 -S -s
+</div>
+
+<p>The debugger can be attached like this:</p>
+<div class="code">
+$ gdb -ex "target remote localhost:1234"
+</div>
+
+<a name="download" id="download" ></a>
+<h2>Download</h2>
+<p>The source code of coreboot, libpayload and TianoCore EDK2 can be obtained 
+from the respective project webpages.</p>
+<p>Unfortunately, the efiload source code as well as the CorebootPkg cannot be
+distributed at this time due to legal obligations.</p>
+
+
+<a name="hacking" id="hacking" ></a>
+<h2>Hacking</h2>
+
+<p>Because the source code for this project cannot be released at this time,
+the information contained in this section is a little sparse and probably not
+too interesting for the greater public.</p>
+
+<p>The efiboot code is built in a sandbox w/ the following directory
+structure:</p>
+<div class="code">
+  efiboot/ <br />
+  efiboot/coreboot <br />
+  efiboot/libpayload <br />
+  efiboot/edk2 <br />
+  efiboot/efiload
+</div>
+
+<h3>The CorebootPkg</h3>
+<p>Check out the CorebootPkg and place it in <span
+class="code">efiboot/edk2/CorebootPkg</span>. No further adjustments are
+required.</p>
+
+<p>The CorebootPkg contains a platform description file (*.dsc), a package
+declaration file (*.dec), a flash description file (*.fdf) and an implementation
+of the <span class="code">PeCoffLib</span> interface which operates on ELF
+images instead of PE32+ files.</p>
+
+<p>The platform description file determines what actual implementation backs
+which library interface. It also determines which modules are built for this
+platform. Finally, it contains the definitions (as opposed to the declarations)
+of the PCD values known at compile time. The <a
+href="http://heanet.dl.sourceforge.net/project/edk2/Specifications/DSC_Spec_v1.22_Errata_B.pdf">platform
+description file (*.dsc) format</a> is specified by the TianoCore EDK II. The
+CorebootPkg is very similar to all other packages in the EDK II tree. The one
+notable difference is that it maps the <span class="code">PeCoffLib</span>
+library interface to its own implementation.</p>
+
+<p>When modifying the CorebootPkg, either by adding new modules or when updating
+to a newer TianoCore code base, it is frequently required to find out which
+implementations of a given library interface are available. A command like this
+one, issued from the <span class="code">edk2/</span> directory can be used for
+this task:</p>
+
+<div class="code">
+$ find . -name "*.inf" | xargs grep -e "LIBRARY_CLASS *= *PeCoffLib"
+</div>
+
+<p>The package declaration file must declare (as opposed to define) all PCD
+values known at build time and referenced in the package. The <a
+href="https://sourceforge.net/projects/edk2/files/Specifications/DEC_Spec_v1.22_Errata_B.pdf/download">package
+declaration file (*.dec) format</a> is specified by the TianoCore EDK II.
+Previously, those values had been declared in the platform description file,
+too, but have apparently been moved to a separate file in more recent version of
+the TianoCore EDK II source tree. Failing to declare the PCDs will yield in
+errors from the build toolchain.</p>
+
+<p>The <a href="">flash description file (*.fdf) format</a> is specified by the
+TianoCore EDK II as well. The file contains meta-data about the flash devices
+and images the build system deals with. Specifically, it defines what firmware
+volumes will be build and what modules they will contain.  The CorebootPkg
+defines one firmware volume named &quot;FvRecovery&quot; containing all required
+modules. The minimum requirements are the DXE Core plus those modules that
+install the &quot;architectural protocols&quot;, i.e. implement the UEFI boot
+and runtime services referenced from the system table.</p>
+
+<h3>UEFI components</h3>
+<p>Place the EDK II source code in the <span class="code">efiboot/edk2</span>
+directory. Go to the <span class="code">BaseTools</span> subdirectory and
+build the toolchain for the EDK II code. On Ubuntu, make sure the <span
+class="code">uuid-dev</span> package is installed (along with the compiler, of
+course). In order to work with ELF images only, replace <span
+class="code">BaseTools/Source/C/GenFw/GenFw.c</span>. The replacement tool must
+accept the same parameters as the original one. It's only task is to copy the
+input file to a &quot;branded&quot; output file: The build process passes the
+&quot;-e&quot; parameter when invoking the GenFw utility, indicating what kind
+of module the binary is (e.g. UEFI_DRIVER, DXE_CORE, ...). This information is
+used at runtime to e.g. find the DXE Core module in the firmware volume. The
+<span class="code">e_flags</span> field in the ELF header can be used to store
+that data.</p>
+
+<p>Source in the <span class="code">edksetup.sh</span> script from the <span
+class="code">edk2</span> directory in order to set-up the required workspace
+files such as e.g. <span class="code">Conf/tools_def.txt</span>.</p>
+
+<p>Then adjust the file <span class="code">Conf/tools_def.txt</span> so the tool
+chain produces executable files instead of shared objects: Look for the <span
+class="code">ELFGCC</span> tag and remove the <span class="code">--shared</span>
+parameter from the linker flags. Instead add <span class="code">-Ttext
+0x00</span> to the linker flags. The linker flags have two effects: First, the
+linker will fail if the output file has unresolved symbols. Second, linking the
+binary at address 0x00 will make it easier to do the math, should you attempt to
+attach a debugger and load a symbol file. Depending on your compiler, you may
+also need to add <span class="code">-fno-stack-protector</span> to the compiler
+flags.</p> 
+
+<p>Adjust the file <span class="code">Conf/target.txt</span> so the active
+target is the CorebootPkg and the toolchain tag is <span
+class="code">ELFGCC</span>.</p>
+
+<p>Finally, run <span class="code">build</span>.</p>
+
+<p>The file <span class="code"><a
+href="https://edk2.svn.sourceforge.net/svnroot/edk2/trunk/edk2/BuildNotes2.txt">BuildNotes2.txt</a></span>,
+also part of the EDK II source tree, contains further information about the
+build process and tweaking it.</p>
+
+<h3>efiload</h3>
+<p>Store the efiload source code in <span class="code">efiboot/efiload</span>.
+Create a symbolic link named <span class="code">FVRECOVERY.Fv</span> that
+points to <span
+class="code">../edk2/Build/Coreboot/DEBUG_ELFGCC/FV/FVRECOVERY.Fv</span>.
+Compile the code via <span class="code">make</span>. The output of the build
+process is the file <span class="code">efiloader.elf</span> which is used as
+the coreboot payload.</p>
+
+<h3>coreboot</h3>
+<p>Place the coreboot source code in the <span
+class="code">efiboot/coreboot</span> directory. The <a
+href="http://www.coreboot.org/Build_HOWTO">coreboot Build HOWTO</a> contains
+further information on this topic. When configuring coreboot via <span
+class="code">make menuconfig</span>, make sure the payload points to the <span
+class="code">efiloader.elf</span> file that contains the efiload code.</p>
+
+
+<a name="links" id="links"></a>
+<h2>Links</h2>
+<p>Here are a few links to related projects.</p>
+
+<ul>
+ <li>Homepage of <a href="http://www.coreboot.org/">coreboot</a> project</li>
+ <li>The <a href="http://www.coreboot.org/Libpayload">libpayload</a> page in
+ the coreboot wiki</li>
+ <li>The <a href="https://edk2.tianocore.org/">EDK2 Project Page</a>, part of
+ the <a href="https://www.tianocore.org/">TianoCore</a> project</li>
+ <li>Web presence of the <a href="http://www.uefi.org/home">UEFI Forum</a>,
+ host of the UEFI and PI specifications</li>
+ <li>The <a href="http://wiki.qemu.org/Main_Page">QEMU</a> Website</li>
+ <li>A few <a href="http://sourceforge.net/apps/mediawiki/tianocore/index.php?title=EDK_II_Specifications">EDK II Specifications</a>.</li>
+</ul>
+
+
+
+    <a name="contact" id="contact"></a>
+    <h2>Contact</h2>
+    <p>Contact the author Philip Schulz by <a id="email">Email</a>.</p>
+ </div>
+
+ <div class="logo">
+   <div class="footer">&nbsp;</div>
+   <a class="logo" href="http://validator.w3.org/check?uri=referer">
+     <img class="logo" src="http://www.w3.org/Icons/valid-xhtml10-blue"
+       alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+   </a>
+   <a class="logo" href="http://jigsaw.w3.org/css-validator/">
+    <img class="logo" style="border:0;width:88px;height:31px"
+      src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+      alt="Valid CSS!" />
+   </a>
+ </div>
+
+ </body>
+</html>

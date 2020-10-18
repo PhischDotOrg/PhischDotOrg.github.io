@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>
+    Looping Louie - Random Speed Controller
+  </title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" media="screen" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" media="print" type="text/css" href="../css/print.css" />
+  <link rel="stylesheet" href="../loopinglouie/loopinglouie.css" type="text/css" />
+
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+
+  
+          <!-- Lightbox 2 -->
+          <script type="text/javascript" src="../js/prototype.js"></script>
+          <script type="text/javascript" src="../js/scriptaculous.js?load=effects,builder"></script>
+          <script type="text/javascript" src="../js/lightbox.js"></script>
+        
+
+  <script type="text/javascript">
+    /*
+     * If you're wondering what all this is about: I'm hoping that this will
+     * keep most web crawlers from harvesting my Email address while still
+     * giving nearly all users a "clickable" Email link.
+     */
+    function load() {
+      var menu_email = document.getElementById("menu_email");
+      var email = document.getElementById("email");
+
+      var menu_href = document.createAttribute("href");
+      var href = document.createAttribute("href");
+
+      var address = "mailto:";
+      address += "phs";
+      address += "@";
+      address += "deadc0";
+      address += ".";
+      address += "de"
+
+      menu_href.nodeValue=address;
+      href.nodeValue=address;
+
+      menu_email.setAttributeNode(menu_href);
+      if  (email) email.setAttributeNode(href);
+    }
+  </script>
+ </head>
+ <body onload="load()">
+
+ <div class="top_menu">
+   <h2 class="top_menu">Navigation</h2>
+   <ol class="top_menu">
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/">
+       Home
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="#Projects">
+       Projects
+      </a>
+     </span>
+
+      <ul class="top_submenu">
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/efiboot/index.html">efiboot</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/xc3s400a/index.html">FPGA</a>
+        </span>
+        <ul class="top_sub2menu">
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_gpio/index.html">gpio</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_i2c_slave/index.html">i2c_slave</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_spimaster/index.html">spimaster</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_switch/index.html">wb_switch</a>
+          </span>
+         </li>
+        </ul>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/glxiic/index.html">glxiic</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/loopinglouie/index.html">Looping Louie</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/obd2diag/index.html">OBD-II Diagnostics Tool</a>
+        </span>
+       </li>
+      </ul>
+    </li>
+
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/blog">
+       Blog
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/music">
+       Music
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="http://www.flickr.com/photos/deadc0de/">
+       Photos
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" id="menu_email">
+       Contact
+      </a>
+     </span>
+    </li>
+   </ol>
+ </div>
+
+ <div id="menu">
+  <h2 class="menu">Contents</h2>
+  <ul class="menu">
+   <li class="menu"><a href="#home">Top</a></li>
+<li class="menu"><a href="#intro">Introduction</a></li>
+<li class="menu"><a href="#hardware">Hardware</a></li>
+<li class="menu"><a href="#software">Software</a></li>
+<li class="menu"><a href="#eight">Eight Players</a></li>
+<li class="menu"><a href="#pictures">Pictures</a></li>
+<li class="menu"><a href="#download">Download</a></li>
+<li class="menu"><a href="#cart">Parts List</a></li>
+<li class="menu"><a href="#links">Links</a></li>
+
+
+    <li class="menu"><a href="#contact">Contact</a></li>
+   <li class="menu"><a href="#share">Share</a></li>
+  </ul>
+ </div>
+
+ <div id="content">
+   <a name="home" id="home"></a>
+<h1>Random Speed Controller for &quot;Looping Louie&quot;</h1>
+<p>This is the project homepage for some modifications to a children's game
+called &quot;Looping Louie&quot;.</p>
+
+<p>Last updated: <span class="code">$Date$</span>.</p>
+
+<h3>Updates</h3>
+<h4>Jan 5th, 2013</h4>
+<p>HTML changes related to my home-grown &quot;CMS.&quot;</p>
+
+<a name="intro" id="intro"></a>
+<h2>Introduction</h2>
+<p>&quot;Looping Louie&quot; is a children's game made by Milton Bradley, a
+Hasbro company, which has become increasingly popular amongst young adults. The
+goal of the game is to prevent a rotating arm from touching the players' game
+chips by catapulting it in the air (the <a href="#links">links section</a>
+brings you to a video which will make things clearer). Because the speed of the
+rotating arm is fixed, an experienced player can have a significant advantage
+over someone who is not familiar with the game. Also, the game is designed for
+four players.</p>
+
+<p>This page describes how the game was enhanced with a &quot;random speed
+controller&quot; that eliminates any advantages experienced players may have.
+Also, a modification for eight players is presented which has been created by a
+friend of the author. For the impatient, there's a set of <a
+href="#pictures">pictures</a> below.</p>
+
+<a name="hardware" id="hardware"></a>
+<h2>Hardware</h2>
+<p>The hardware part of the project is fairly simple: A microcontroller (MCU) does
+pulse-width modulation (PWM) through an n-Channel FET on a 9V DC supply voltage.
+Because the MCU runs at a maximum of 5V DC, a voltage regulator is required. I
+added a couple of buttons to reset and provide input to the MCU. One or two LEDs
+give some feedback on what the MCU is doing. A few resistors and capacitors here
+and there and that's it.</p>
+
+<p>I chose the ATtiny 25/45/85 family of microcontrollers for three reasons:
+First, it comes in a DIL-8 package, so it's small and easy to solder. Second, it
+requires almost no external parts, especially no oscillator as it has one built
+in. And third, it has a hardware timer to generate the PWM pulses which
+simplifies the software design.</p>
+
+<p>To make everything look nice, and in order to make things a bit more robust,
+I bought a small plastic housing. It contains the board and holds the cables,
+buttons and one LED. The rest of the hardware, especially the second LED and the
+programming header, are not accessible unless the housing is opened.</p>
+
+<p>There is a link to the schematics in the <a href="#download">downloads</a>
+section on this page.</p>
+
+<a name="software" id="software"></a>
+<h2>Software</h2>
+<p>The software running on the MCU controls the timer used for the PWM and thus
+the speed of the game. It offers four fixed speed modes as well as a random
+mode. The mode button allows the user to switch through the modes, i.e. pressing
+the mode button switches the software to the next mode.</p>
+
+<p>In the fixed speed modes, the PWM timer is set to a pre-defined value and
+never changed, unless the user presses the mode button to select the next
+mode.</p>
+
+<p>In random mode, the PWM width is periodically updated. There are several ways
+of updating the PWM speed: No change, add, subtract, multiply, divide or set the
+current value. This causes the speed of the game to vary.  Because the goal is
+to achieve non-deterministic behavior, a second timer is used to control the
+time between updating the PWM speed. The algorithm goes like this:</p>
+
+<ol>
+ <li>The user turns on random mode.</li>
+ <li>Set the current PWM speed to a fixed value, somewhere near medium fast.</li>
+ <li>Initialize the current random mode iteration.
+  <ul>
+   <li>Randomly pick an &quot;update mode&quot;.</li>
+   <li>Randomly pick a change value, i.e. how much the speed should be increased
+   or decreased when it is changed.</li>
+   <li>Program the second timer with a random delay.</li>
+   <li>Decide for how many timer ticks the chosen &quot;update mode&quot; should be
+   kept and store the value in a counter variable.</li>
+  </ul>
+ </li>
+ <li>Wait for timer tick.</li>
+ <li>Execute update.
+  <ul>
+   <li>Perform an update of the PWM speed, depending on the &quot;update
+   mode&quot; and the change value.</li>
+   <li>Decrement the counter variable by 1.</li>
+   <li>If counter variable has reached zero, go to 3. Otherwise, go to
+   4.</li>
+  </ul>
+ </li>
+</ol>
+
+<p>Because division is diffictult on a MCU, both
+multiplication as well as division are implemented by bit shifting, so there is
+always a factor of 2. For instance, if the current value is 27 (0x1b), the next
+value will be 54 (0x36) in multiply mode. In division mode, the next value would
+be 13 (0xd).</p>
+
+<p>The software can be downloaded in both source and binary form. See the <a
+href="#download">downloads</a> section for links.</p>
+
+<a name="eight" id="eight"></a>
+<h2>Eight-player Extension</h2>
+<p>The extension for eight players is fairly straight forward: Small adapter
+parts have been manufactured that allow an extra four arms to be connected to
+the base station. Because the parts have been designed by a friend of mine, I
+cannot say much about how it's done. All I know is that they are made of acrylic
+glass and that they have been machine manufactured.</p>
+
+<a name="pictures" id="pictures"></a>
+<h2>Pictures</h2>
+<p>Here's a set of pictures that show what the finished project looks like:</p>
+
+<div class="pictures">
+  <span class="picture">
+    <a href="img/IMG_9356.jpg" title="Board" rel="lightbox[loopinglouie]">
+     <img class="thumbnail" src="thumbs/IMG_9356.jpg" alt="Board" />
+    </a>
+  </span>
+  <span class="picture">
+    <a href="img/IMG_9379.jpg" title="Internal Modifications" rel="lightbox[loopinglouie]">
+     <img class="thumbnail" src="thumbs/IMG_9379.jpg" alt="Internal Modifications" />
+    </a>
+  </span>
+  <span class="picture">
+    <a href="img/IMG_9382.jpg" title="Cable (internal)" rel="lightbox[loopinglouie]">
+     <img class="thumbnail" src="thumbs/IMG_9382.jpg" alt="Cable (internal)" />
+    </a>
+  </span>
+  <span class="picture">
+    <a href="img/IMG_9383.jpg" title="Cable (external)" rel="lightbox[loopinglouie]">
+     <img class="thumbnail" src="thumbs/IMG_9383.jpg" alt="Cable (external)" />
+    </a>
+  </span>
+  <span class="picture">
+    <a href="img/IMG_9374.jpg" title="Finished Product" rel="lightbox[loopinglouie]">
+     <img class="thumbnail" src="thumbs/IMG_9374.jpg" alt="Finished Product" />
+    </a>
+  </span>
+</div>
+
+<a name="download" id="download" ></a>
+<h2>Download</h2>
+<ul>
+ <li>The <a href="files/LoopingLouieSchematics.pdf">schematics (PDF)</a> of the circuit.</li>
+ <li>The <a href="files/LoopingLouie.c">source code</a> of the firmware.</li>
+ <li>A <a href="files/LoopingLouie.hex">firmware binary</a> file that can be flashed
+ into an ATtiny45 MCU.</li>
+ <li>A <a href="http://live.gnome.org/Dia">Dia</a> drawing on how to <a
+ href="files/LoopingLouieBoard.pdf">layout the circuit on a perfboard</a>. I ended up
+ soldering everything pretty close to the layout in the drawing, but I had to
+ make small changes for the connector of the supply cables. Also, I soldered the
+ wires for the buttons and the red LED where they fit best, not at the edge of
+ the board as shown in the drawing.</li>
+</ul>
+
+<a name="parts" id="parts" ></a>
+<h2>Parts List</h2>
+<p>In case you want to build a controller on your own, here's a list of parts
+you will need. Since I'm located in Germany, I'm listing the German sources, but
+I'm sure the parts can be obtained in other parts of the world, too.</p>
+
+<h4>General Supplies you probably have at home</h4>
+<ul>
+ <li>Soldering iron (L&ouml;tkolben).</li>
+ <li>Soldering wire (L&ouml;tzinn).</li>
+ <li>Copper or silver wire for the electrical connections on the curcuit board
+ (Kupfer- o. Silberdraht f&uuml;r Leiterbahnen).</li>
+ <li>A pair of pliers to cut the wire (Einen Seitenschneider f&uuml;r den
+ Silberdraht).</li>
+ <li>Sharp knife to remove the insulation (Scharfes Messer um Kabel von
+ der Isolierung zu befreien).</li>
+ <li>4mm drill for holes in the housing (4mm Bohrer f&uuml;r das
+ Plastikgeh&auml;use).</li>
+</ul>
+
+<h4>Mechanical Parts for the outside</h4>
+<ul>
+ <li>Housing 85x65x28mm (Geh&auml;use, z.B. <a
+ href="http://www.reichelt.de/Etuigehaeuse/SP-2062-SW/index.html?;ACTION=3;LA=444;GROUP=C715;GROUPID=3356;ARTICLE=33822;START=0;SORT=artnr;OFFSET=1000">Reichelt
+ SP 2062 SW</a>).</li>
+ <li>10 mm Spacer (Distanzst&uuml;ck, z.B. <a
+ href="http://www.reichelt.de/Distanzhuelsen-etc-/DK-10MM/index.html?;ACTION=3;LA=5011;GROUP=C77;GROUPID=3365;ARTICLE=7145;OFFSET=1000;SORT=artnr">Reichelt
+ DK 10MM</a>).</li>
+ <li>1 Screw, M4, 20-25mm (Schraube M4).</li>
+ <li>1 Nut, M4 (passende M4 Mutter).</li>
+ <li>Some plastic shells that let you run the cable through the board housing in
+ a nice looking way (&quot;Durchf&uuml;hrungst&uuml;lle&quot;, z.B.
+ <a href="http://www.conrad.de/ce/de/product/526924">Conrad Nr. 526924</a>).</li>
+</ul>
+
+<h4>Connections</h4>
+<ul>
+ <li>Some two-wired cable, mine is 2 x .75mm (Litze, 2 * 0,75mm).</li>
+ <li>4-port clamp connector (4-polige Anschlussklemmen, z.B. 2x <a
+ href="http://www.conrad.de/ce/de/product/743530">Conrad Nr.  743530</a>)</li>
+ <li>3 Connectors for power supply and game (Stecker und Buchsen f&uuml;r die
+ Stromversorgung, z.B. Reichelt 1x <a href="http://www.reichelt.de/Hohlstecker/HS-25-9/index.html?;ACTION=3;LA=5000;GROUP=C195;GROUPID=3258;ARTICLE=8649">HS 25-9</a>
+ und 2x <a href="http://www.reichelt.de/Hohlstecker/HK-25/index.html?;ACTION=3;LA=5000;GROUP=C195;GROUPID=3258;ARTICLE=35260">HK 25</a>)</li>
+ <li>2x6 Pin Header for programming adapter (2x6 pol. Wannenstecker, z.B. <a
+ href="http://www.reichelt.de/Pfosten-Wannenstecker/WSL-6G/index.html?;ACTION=3;LA=5011;GROUP=C151;GROUPID=3231;ARTICLE=85732">Reichelt
+ WSL 6G</a>)</li>
+</ul>
+
+<h4>Electronics</h4>
+<ul>
+ <li>Perfboard, about 60x65mm (Lochrasterplatine).</li>
+ <li>ATtiny 25/45/85 Controller, either version should work.</li>
+ <li>5V/100mA voltage regulator, e.g. 78L05 (Spannungsregler).</li>
+ <li>n-Channel Field-effect Transistor (n-FET), e.g. BUZ-11 (Feldeffekttransistor).</li>
+ <li>50V/1A Diode, e.g. 1N4001.</li>
+ <li>Resistors: 2x 100k, 1x 4k7, 2x 220 (Widerst&auml;nde).</li>
+ <li>Capacitors: 1x 330nF, 1x 100 nF (Kondensatoren).</li>
+ <li>Two push buttons of different color that close on push (verschiedenfarbige Schlie&szlig;-Taster, z.B. <a
+ href="http://www.reichelt.de/Drucktaster-Druckschalter/T-250A-GN/index.html?;ACTION=3;LA=5011;GROUP=C221;GROUPID=3277;ARTICLE=19985">Reichelt
+ T 250A GN</a>).</li>
+ <li>LEDs: 1x red, 1x green (for debug).</li>
+</ul>
+
+<h4>Other parts</h4>
+<ul>
+ <li>A power supply that provides 9 Volts DC at 1 A (max.) (Netzteil, 9V Gleichspannung,
+ 1A max., z.B. <a href="http://www.conrad.de/ce/de/product/513002">Conrad Nr.
+ 513002</a>).</li>
+ <li>An AVR programmer, e.g. <a
+ href="http://www.atmel.com/tools/AVRISPMKII.aspx">AVRISP mkII</a>, in order to
+ get the firmware programmed into the microcontroller.</li>
+</ul>
+
+<a name="links" id="links"></a>
+<h2>Links</h2>
+<p>Here are a few links related to this project. Apparently, this game isn't
+very popular outside the German speaking part of the world.</p>
+
+<ul>
+ <li>German &quot;Looping Louie&quot; <a href="http://de.wikipedia.org/wiki/Looping_Louie">Wikipedia Article</a>.</li>
+ <li>&quot;Looping Louie&quot; <a href="http://www.loopinglouie.de/">Fan Page</a>, also German.</li>
+ <li>An old <a href="http://www.retrojunk.com/details_commercial/475/">&quot;Looping Louie&quot; commercial</a>.</li>
+</ul>
+
+
+
+    <a name="contact" id="contact"></a>
+    <h2>Contact</h2>
+    <p>Contact the author Philip Schulz by <a id="email">Email</a>.</p>
+ </div>
+
+ <div class="logo">
+   <div class="footer">&nbsp;</div>
+   <a class="logo" href="http://validator.w3.org/check?uri=referer">
+     <img class="logo" src="http://www.w3.org/Icons/valid-xhtml10-blue"
+       alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+   </a>
+   <a class="logo" href="http://jigsaw.w3.org/css-validator/">
+    <img class="logo" style="border:0;width:88px;height:31px"
+      src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+      alt="Valid CSS!" />
+   </a>
+ </div>
+
+ </body>
+</html>

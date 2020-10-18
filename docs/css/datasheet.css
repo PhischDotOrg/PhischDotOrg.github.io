@@ -1,0 +1,60 @@
+div.datasheet {
+    margin-top: 1em;
+    margin-right: 1em;
+    margin-left: 1em;
+    margin-bottom: 1em;
+
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-bottom: 1em;
+
+    border: 1px dashed #4d4d4d;
+}
+
+table.datasheet {
+
+}
+
+table.datasheet th {
+    border-bottom: 1px solid #4d4d4d;
+}
+
+table.datasheet td.variable {
+    font-family: monospace;
+
+    margin-right: 1em;
+    margin-left: 1em;
+
+    padding-right: 1em;
+    padding-left: 1em;
+
+    border-right: 1px solid #4d4d4d;
+}
+
+table.datasheet td.variable2 {
+    font-family: monospace;
+
+    margin-right: 1em;
+    margin-left: 1em;
+
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+table.datasheet td {
+    border-top: 1px dashed #4d4d4d;
+}
+
+table.datasheet td.name {
+    padding-right: 1em;
+    padding-left: 1em;
+
+    border-right: 1px solid #4d4d4d;
+}
+
+table.datasheet td.description {
+    padding-right: 1em;
+    padding-left: 1em;
+}
+

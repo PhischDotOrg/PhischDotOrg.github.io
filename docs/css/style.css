@@ -1,0 +1,157 @@
+/*
+ * Copyright (c) 2008-2013 Philip Schulz <phs@phisch.org>
+ *
+ * Color Scheme is:
+ *  - Blue (Dark):     #39618F
+ *  - Blue (Medium):   #4779B3
+ *  - Blue (Light):    #5999E3
+ *
+ *  - Green (Dark):    #709E4E
+ *  - Green (Medium):  #82B65B
+ *  - Green (Light):   #A4E773
+ *
+ *  - Grey (Dark):     #4D4D4D
+ *  - Grey (Medium):   #B3B3B3
+ *  - Grey (Light):    #E6E6E6
+ */
+@import "top_menu.css";
+@import "internal_menu.css";
+@import "common.css";
+@import "datasheet.css";
+
+div#content {
+	position: relative;
+
+	top: 4em;
+	margin-right: 10em;
+	margin-left: 17em;
+	margin-bottom: 2em;
+
+	padding: 0 1em;
+
+	border: 1px dashed #4d4d4d;
+
+	min-width: 45em;
+	max-width: 65em;
+
+	background-color: white;
+}
+
+div.share {
+	position: relative;
+
+	top: 4em;
+	margin-right: 10em;
+	margin-left: 17em;
+	margin-bottom: 11em;
+
+	padding: 0 1em;
+
+	border: 1px dashed #4d4d4d;
+
+	min-width: 45em;
+	max-width: 65em;
+
+	background-color: white;
+}
+
+div#menu {
+	position: fixed;
+
+	left: 2em;
+	top: 4em;
+
+	float: left;
+
+	border: 1px dashed #4d4d4d;
+	background-color: white;
+	width: 13em;
+}
+
+h2.menu {
+	display: none;
+}
+
+div.logo {
+	position: fixed;
+
+	text-align: right;
+
+	left: 0px;
+	bottom: 0px;
+
+	height: 4em;
+	
+	width: 100%;
+
+	padding-top: 0.5em;
+	padding-bottom: 0em;
+	margin-bottom: 0em;
+
+	border-top: 1px solid #4d4d4d;
+	background-color: white;
+
+        z-index: 1001;
+}
+
+a.logo:hover {
+	border: none;
+}
+
+img.logo {
+	vertical-align: middle;
+	border-style: none;
+	padding-left: 1em;
+	padding-bottom: 1em;
+}
+
+div.footer {
+	float: left;
+	padding-left: 1em;
+
+	font-size: x-small;
+}
+
+a.impressum_title {
+	font-weight: bold;
+	color: #B3B3B3;
+}
+
+div#impressum {
+	position: fixed;
+	padding: 1em;
+	width: 44em;
+	height: 2em;
+
+	left: 5em;
+	bottom: 2.5em;
+	border: 1px dotted #4d4d4d;
+
+	background: #E6E6E6;
+	color: #4D4D4D;
+
+	visibility: hidden;
+}
+
+div#impressum_shadow {
+	position: fixed;
+	padding: 1em;
+	width: 44em;
+	height: 2em;
+
+	left: 5.5em;
+	bottom: 1.9em;
+
+	background: #4D4D4D;
+
+	visibility: hidden;
+}
+
+h1.impressum_title {
+	display: none;
+}
+
+img {
+    max-width: 100%;
+}
+

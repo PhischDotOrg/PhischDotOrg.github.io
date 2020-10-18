@@ -1,0 +1,111 @@
+div.internal_menu {
+    position: fixed;
+
+    text-align: right;
+    
+    right: 0px;
+    top: 0px;
+    
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    
+    border-bottom: 1px solid #4d4d4d;
+    background-color: white;
+
+    white-space: nowrap;
+
+    z-index: 20;
+}
+
+ol.internal_menu {
+  display: block;
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  float: right;
+  position: relative;
+}
+
+li.internal_menu {
+  display: inline-block;
+  /* line-height: 27px; */
+  padding: 0;
+  position: relative;
+  vertical-align: top;
+  float: right;
+  margin: 0;
+}
+
+ol.internal_menu li ul {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 10;
+    background: white;
+    border-top: 1px #4d4d4d dotted;
+    border-left: 1px #4d4d4d solid;
+    border-right: 1px #4d4d4d solid;
+    border-bottom: 1px #4d4d4d solid;
+    left: -1.5em;
+}
+
+ol.internal_menu li ul {
+    display: none;
+}
+
+ol.internal_menu li:hover ul {
+    display: block;
+}
+
+ul.internal_menu li {
+    float: none;
+    display: block;
+}
+
+ul.internal_menu li:hover {
+    background-color: #e6e6e6;
+}
+
+ol.internal_menu ul li span {
+    border: 0;
+    display: inline-block;
+
+    padding: 0;
+
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+
+    position: relative;
+    vertical-align: top;
+}
+
+span.internal_menu {
+    border: 0;
+    display: inline-block;
+    padding-left: 0.5em; 
+    padding-right: 0.5em; 
+    padding-top: 0;
+    padding-bottom: 0;
+    position: relative;
+    vertical-align: top;
+}
+
+/* Change color of horizontal bar when mouse over */
+span.internal_menu:hover {
+    background-color: #e6e6e6;
+}
+
+a.internal_menu {
+    color: #39618f;
+    text-decoration: none;
+}
+
+a.internal_menu:hover {
+    border-bottom: none;
+}
+
+h2.internal_menu {
+	display: none;
+}
+

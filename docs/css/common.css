@@ -1,0 +1,104 @@
+/*
+ * Copyright (c) 2008-2013 Philip Schulz <phs@phisch.org>
+ *
+ * Color Scheme is:
+ *  - Blue (Dark):     #39618F
+ *  - Blue (Medium):   #4779B3
+ *  - Blue (Light):    #5999E3
+ *
+ *  - Green (Dark):    #709E4E
+ *  - Green (Medium):  #82B65B
+ *  - Green (Light):   #A4E773
+ *
+ *  - Grey (Dark):     #4D4D4D
+ *  - Grey (Medium):   #B3B3B3
+ *  - Grey (Light):    #E6E6E6
+ */
+
+body {
+	margin:0px;
+	padding:0px;
+	font:11px/20px verdana, arial, helvetica, sans-serif;
+	color: black;
+	background-color: #e6e6e6;
+}
+
+a {
+	color: #39618f;
+	text-decoration: none;
+}
+
+a:hover {
+	border-bottom: 1px dotted;
+}
+
+div.img {
+	text-align: center;
+
+	margin-top: 1em;
+	margin-right: 1em;
+	margin-left: 1em;
+	margin-bottom: 1em;
+
+	padding-top: 1em;
+	padding-right: 1em;
+	padding-left: 1em;
+	padding-bottom: 1em;
+
+	border: 1px dashed #4d4d4d;
+}
+
+div.code {
+    font-family: monospace;
+    margin-top: 1em;
+    margin-right: 1em;
+    margin-left: 1em;
+    margin-bottom: 1em;
+
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-bottom: 1em;
+
+    border: 1px dashed #4d4d4d;
+}
+
+span.img {
+	margin-top: 1em;
+	display: block;
+	font-style: italic;
+}
+
+span.code {
+    font-family: monospace;
+}
+
+span.update_title {
+    font-style: italic;
+}
+
+span.update_content {
+}
+
+img {
+	vertical-align: middle;
+	border-style: none;
+}
+
+h1 {
+	color: #39618f;
+	margin-top: 0.5em;
+}
+
+h2 {
+	color: #39618f;
+}
+
+h3 {
+	color: #39618f;
+}
+
+h4 {
+	color: #B3B3B3;
+}
+

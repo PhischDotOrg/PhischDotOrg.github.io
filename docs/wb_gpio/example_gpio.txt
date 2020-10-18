@@ -1,0 +1,29 @@
+entity wb_gpio is
+generic (
+    dat_sz  : natural := 8
+);
+port (
+    clk_i  : in  std_logic;
+    rst_i  : in  std_logic;
+    --
+    -- Whishbone Interface
+    --
+    dat_i  : in  std_logic_vector((dat_sz - 1) downto 0);
+    dat_o  : out std_logic_vector((dat_sz - 1) downto 0);
+    adr_i  : in  std_logic_vector(1 downto 0);
+    cyc_i  : in  std_logic;
+    lock_i : in  std_logic;
+    sel_i  : in  std_logic;
+    we_i   : in  std_logic;
+    ack_o  : out std_logic;
+    err_o  : out std_logic;
+    rty_o  : out std_logic;
+    stall_o: out std_logic;
+    stb_i  : in  std_logic;
+    --
+    -- GPIO Interface
+    --
+    gp_io  : inout std_logic_vector((dat_sz - 1) downto 0)
+);
+end wb_gpio;
+

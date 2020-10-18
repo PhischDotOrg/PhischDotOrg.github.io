@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>
+    Experiments with a Xilinx Spartan-3A Eval Board by Avnet
+  </title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" media="screen" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" media="print" type="text/css" href="../css/print.css" />
+  <link rel="stylesheet" href="../xc3s400a/xc3s400a.css" type="text/css" />
+
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+
+  
+
+  <script type="text/javascript">
+    /*
+     * If you're wondering what all this is about: I'm hoping that this will
+     * keep most web crawlers from harvesting my Email address while still
+     * giving nearly all users a "clickable" Email link.
+     */
+    function load() {
+      var menu_email = document.getElementById("menu_email");
+      var email = document.getElementById("email");
+
+      var menu_href = document.createAttribute("href");
+      var href = document.createAttribute("href");
+
+      var address = "mailto:";
+      address += "phs";
+      address += "@";
+      address += "deadc0";
+      address += ".";
+      address += "de"
+
+      menu_href.nodeValue=address;
+      href.nodeValue=address;
+
+      menu_email.setAttributeNode(menu_href);
+      if  (email) email.setAttributeNode(href);
+    }
+  </script>
+ </head>
+ <body onload="load()">
+
+ <div class="top_menu">
+   <h2 class="top_menu">Navigation</h2>
+   <ol class="top_menu">
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/">
+       Home
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="#Projects">
+       Projects
+      </a>
+     </span>
+
+      <ul class="top_submenu">
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/efiboot/index.html">efiboot</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/xc3s400a/index.html">FPGA</a>
+        </span>
+        <ul class="top_sub2menu">
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_gpio/index.html">gpio</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_i2c_slave/index.html">i2c_slave</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_spimaster/index.html">spimaster</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_switch/index.html">wb_switch</a>
+          </span>
+         </li>
+        </ul>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/glxiic/index.html">glxiic</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/loopinglouie/index.html">Looping Louie</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/obd2diag/index.html">OBD-II Diagnostics Tool</a>
+        </span>
+       </li>
+      </ul>
+    </li>
+
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/blog">
+       Blog
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/music">
+       Music
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="http://www.flickr.com/photos/deadc0de/">
+       Photos
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" id="menu_email">
+       Contact
+      </a>
+     </span>
+    </li>
+   </ol>
+ </div>
+
+ <div id="menu">
+  <h2 class="menu">Contents</h2>
+  <ul class="menu">
+   <li class="menu"><a href="#home">Home</a></li>
+<li class="menu"><a href="#hacking">Hacking</a></li>
+<li class="menu"><a href="#links">Links</a></li>
+<li class="menu"><a href="#contact">Contact</a></li>
+
+
+    <li class="menu"><a href="#contact">Contact</a></li>
+   <li class="menu"><a href="#share">Share</a></li>
+  </ul>
+ </div>
+
+ <div id="content">
+   <a name="home" id="home"></a>
+<h1>Experiments with a Xilinx Spartan 3A FPGA</h1>
+<p>This is the project homepage for my experiments with a Xilinx Spartan 3A
+FPGA. The FPGA is bundled on an evaluation board (&quot;Spartan 3A Evaluation
+Kit&quot;) which used to be sold by Avnet.</p>
+<p>Because I don't get to spend time on this nearly as much as I'd like to, I
+often have to leave things untouched for months at a time. When I try to pick up
+where I left, I always have trouble remembering what I had done so far and how
+things work. I decided to put information about the various bits and pieces on
+here so I have somewhere to look it up.</p>
+
+<p>Last updated: <span class="code">$Date$</span>.</p>
+
+<a name="overview" id="overview"></a>
+<h2>Overview</h2>
+<p>The Avnet Eval Board I'm using features a Xilinx Spartan 3A (xc3s400a) FPGA
+with around 3,500 slices. Along with the FPGA, there is</p>
+<ul>
+ <li>a 128 MBits SPI flash,</li>
+ <li>32 MBits of parallel NOR flash,</li>
+ <li>a bunch of general purpose I/O (GPIO) pins,</li>
+ <li>four buttons,</li>
+ <li>four LEDs.</li>
+</ul>
+<p>The FPGA can be configured either through JTAG or from either the SPI or the
+parallel flash (selectable via a jumper).</p>
+
+<p>I am using the board to learn about and gain experience with FPGA
+bevelopment. In particular, I want to make the FPGA flashes accessible from the
+outside world via I2C as well as LPC. Internally, I want to build a Wishbone
+infrastructure to connect the various logical blocks.</p>
+
+<p>This is a long-term project made up of serveral somewhat independent
+sub-projects, some of which are complete while others haven't even started, yet.
+The sub-projects that work are described and documented on the pages linked
+below:</p>
+
+<ul>
+  <li><a href="../wb_gpio">gpio</a>
+    -- A general purpose I/O pin driver (Wishbone Slave)</li>
+  <li><a href="../wb_i2c_slave">i2c_slave</a>
+    -- An I2C slave that acts as a bridge to the Wishbone bus</li>
+  <li><a href="../wb_spimaster">spimaster</a>
+    -- A simple and configurable SPI engine</li>
+  <li><a href="../wb_switch">wb_switch</a>
+    -- The Wishbone interconnect logic</li>
+</ul>
+
+<a name="hacking" id="hacking"></a>
+<h2>Hacking</h2>
+<p>To hack on the mentioned eval board, you need a set of tools. I generally use
+&quot;Xilinx ISE WebPACK&quot; software which is available free of charge from
+Xilinx. The Xilinx tools run equally well on both Windows and Linux.</p>
+<p>For the Avnet board, you can use a programmer tool called &quot;AvProg&quot;.
+There's a download link for the most recent version of the tool on the Avnet
+homepage, but unfortunately, I was unable to get the tool's recent versions to
+work with my board. However, the version that came with the board basically
+worked.</p>
+<p>The &quot;avs3a&quot; utility can be used to program the FPGA's SPI
+configuration under Linux. I've got the impression that this tool is somewhat
+slower than the Windows equivalent.</p>
+<p>When it comes to programming the FPGA, I found the Xilinx USB Programmer to
+be the better choice. For that to work properly on Linux, I found <a
+href="http://rmdir.de/~michael/xilinx/">this site</a> to contain highly useful
+information. The benefit of configuring the FPGA through JTAG via the Xilinx USB
+Programmer is speed: It's a lot faster than writing the SPI configuration flash.
+The downside is that the FPGA will lose its configuration after it is reset.</p>
+
+<a name="links" id="links"></a>
+<h2>Links</h2>
+<ul>
+  <li><a href="http://community.em.avnet.com/t5/Spartan-3A-Evaluation-Kit/bd-p/Spartan3A">Avnet Support Forums for the Spartan 3A Evaluation Kit</a></li>
+  <li><a href="http://www.xilinx.com">Xilinx</a> is the manufacturer of the
+  FPGA. There is lots of information on the synthesis tools as well as on the
+  FPGAs themselves on their homepage. Oh, and the download links to their
+  tools (registration required).</li>
+  <li><a href="http://code.google.com/p/avs3a/">avs3a</a> -- A tool to program the FPGA
+  configuration flash on Linux.</li>
+  <li>Information on how to use <a
+  href="http://rmdir.de/~michael/xilinx/">XILINX JTAG tools on Linux without
+  proprietary kernel modules</a>.</li>
+</ul>
+
+
+
+    <a name="contact" id="contact"></a>
+    <h2>Contact</h2>
+    <p>Contact the author Philip Schulz by <a id="email">Email</a>.</p>
+ </div>
+
+ <div class="logo">
+   <div class="footer">&nbsp;</div>
+   <a class="logo" href="http://validator.w3.org/check?uri=referer">
+     <img class="logo" src="http://www.w3.org/Icons/valid-xhtml10-blue"
+       alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+   </a>
+   <a class="logo" href="http://jigsaw.w3.org/css-validator/">
+    <img class="logo" style="border:0;width:88px;height:31px"
+      src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+      alt="Valid CSS!" />
+   </a>
+ </div>
+
+ </body>
+</html>

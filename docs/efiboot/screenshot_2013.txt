@@ -1,0 +1,1380 @@
+
+
+coreboot-4.0-3293-gb867281 Mon Jan 21 22:05:49 CET 2013 starting...
+Re-Initializing CBMEM area to 0x3ee0000
+Loading image.
+CBFS: Looking for 'fallback/coreboot_ram'
+CBFS: found.
+CBFS: loading stage fallback/coreboot_ram @ 0x100000 (135168 bytes), entry @ 0x100000
+Jumping to image.
+coreboot-4.0-3293-gb867281 Mon Jan 21 22:05:49 CET 2013 booting...
+Enumerating buses...
+Show all devs...Before device enumeration.
+Root Device: enabled 1
+PCI_DOMAIN: 0000: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:01.0: enabled 1
+PCI: 00:01.1: enabled 1
+Compare with tree...
+Root Device: enabled 1
+ PCI_DOMAIN: 0000: enabled 1
+  PCI: 00:00.0: enabled 1
+  PCI: 00:01.0: enabled 1
+  PCI: 00:01.1: enabled 1
+scan_static_bus for Root Device
+PCI_DOMAIN: 0000 enabled
+PCI_DOMAIN: 0000 scanning...
+PCI: pci_scan_bus for bus 00
+PCI: 00:00.0 [8086/1237] ops
+PCI: 00:00.0 [8086/1237] enabled
+PCI: 00:01.0 [8086/7000] bus ops
+PCI: 00:01.0 [8086/7000] enabled
+PCI: 00:01.1 [8086/7010] ops
+PCI: 00:01.1 [8086/7010] enabled
+PCI: 00:01.3 [8086/7113] bus ops
+pwrmgt_enable: gpo default missing in devicetree.cb!
+Wakeup from ACPI sleep type S5 (PMCNTRL=0000)
+PCI: 00:01.3 [8086/7113] enabled
+PCI: 00:02.0 [1013/00b8] ops
+PCI: 00:02.0 [1013/00b8] enabled
+PCI: 00:03.0 [10ec/8139] enabled
+scan_static_bus for PCI: 00:01.0
+scan_static_bus for PCI: 00:01.0 done
+scan_static_bus for PCI: 00:01.3
+scan_static_bus for PCI: 00:01.3 done
+PCI: pci_scan_bus returning with max=000
+scan_static_bus for Root Device done
+done
+found VGA at PCI: 00:02.0
+Setting up VGA for PCI: 00:02.0
+Setting PCI_BRIDGE_CTL_VGA for bridge PCI_DOMAIN: 0000
+Setting PCI_BRIDGE_CTL_VGA for bridge Root Device
+Allocating resources...
+Reading resources...
+Root Device read_resources bus 0 link: 0
+PCI_DOMAIN: 0000 read_resources bus 0 link: 0
+PCI_DOMAIN: 0000 read_resources bus 0 link: 0 done
+Root Device read_resources bus 0 link: 0 done
+Done reading resources.
+Show resources in subtree (Root Device)...After reading.
+ Root Device child on link 0 PCI_DOMAIN: 0000
+  PCI_DOMAIN: 0000 child on link 0 PCI: 00:00.0
+  PCI_DOMAIN: 0000 resource base 0 size 0 align 0 gran 0 limit ffff flags 40040100 index 10000000
+  PCI_DOMAIN: 0000 resource base 0 size 0 align 0 gran 0 limit ffffffff flags 40040200 index 10000100
+  PCI_DOMAIN: 0000 resource base fec00000 size 100000 align 0 gran 0 limit ffffffff flags e0000200 index 2
+  PCI_DOMAIN: 0000 resource base fee00000 size 10000 align 0 gran 0 limit ffffffff flags e0000200 index 3
+   PCI: 00:00.0
+   PCI: 00:01.0
+   PCI: 00:01.0 resource base 0 size 1000 align 0 gran 0 limit ffff flags c0000100 index 1
+   PCI: 00:01.0 resource base ff800000 size 800000 align 0 gran 0 limit 0 flags d0000200 index 2
+   PCI: 00:01.1
+   PCI: 00:01.1 resource base 0 size 10 align 4 gran 4 limit ffff flags 100 index 20
+   PCI: 00:01.3
+   PCI: 00:01.3 resource base e400 size 40 align 0 gran 0 limit ffff flags d0000100 index 1
+   PCI: 00:01.3 resource base f00 size 10 align 0 gran 0 limit ffff flags d0000100 index 2
+   PCI: 00:02.0
+   PCI: 00:02.0 resource base 0 size 2000000 align 25 gran 25 limit ffffffff flags 1200 index 10
+   PCI: 00:02.0 resource base 0 size 1000 align 12 gran 12 limit ffffffff flags 200 index 14
+   PCI: 00:03.0
+   PCI: 00:03.0 resource base 0 size 100 align 8 gran 8 limit ffff flags 100 index 10
+   PCI: 00:03.0 resource base 0 size 100 align 8 gran 8 limit ffffffff flags 200 index 14
+PCI_DOMAIN: 0000 compute_resources_io: base: 0 size: 0 align: 0 gran: 0 limit: ffff
+PCI: 00:03.0 10 *  [0x0 - 0xff] io
+PCI: 00:01.1 20 *  [0x400 - 0x40f] io
+PCI_DOMAIN: 0000 compute_resources_io: base: 410 size: 410 align: 8 gran: 0 limit: ffff done
+PCI_DOMAIN: 0000 compute_resources_mem: base: 0 size: 0 align: 0 gran: 0 limit: ffffffff
+PCI: 00:02.0 10 *  [0x0 - 0x1ffffff] prefmem
+PCI: 00:02.0 14 *  [0x2000000 - 0x2000fff] mem
+PCI: 00:03.0 14 *  [0x2001000 - 0x20010ff] mem
+PCI_DOMAIN: 0000 compute_resources_mem: base: 2001100 size: 2001100 align: 25 gran: 0 limit: ffffffff done
+avoid_fixed_resources: PCI_DOMAIN: 0000
+avoid_fixed_resources:@PCI_DOMAIN: 0000 10000000 limit 0000ffff
+avoid_fixed_resources:@PCI_DOMAIN: 0000 10000100 limit ffffffff
+constrain_resources: PCI_DOMAIN: 0000
+constrain_resources: PCI: 00:00.0
+constrain_resources: PCI: 00:01.0
+constrain_resources: PCI: 00:01.1
+constrain_resources: PCI: 00:01.3
+constrain_resources: PCI: 00:02.0
+constrain_resources: PCI: 00:03.0
+avoid_fixed_resources2: PCI_DOMAIN: 0000@10000000 limit 0000ffff
+	lim->base 00001000 lim->limit 0000e3ff
+avoid_fixed_resources2: PCI_DOMAIN: 0000@10000100 limit ffffffff
+	lim->base 00000000 lim->limit febfffff
+Setting resources...
+PCI_DOMAIN: 0000 allocate_resources_io: base:1000 size:410 align:8 gran:0 limit:e3ff
+Assigned: PCI: 00:03.0 10 *  [0x1000 - 0x10ff] io
+Assigned: PCI: 00:01.1 20 *  [0x1400 - 0x140f] io
+PCI_DOMAIN: 0000 allocate_resources_io: next_base: 1410 size: 410 align: 8 gran: 0 done
+PCI_DOMAIN: 0000 allocate_resources_mem: base:fc000000 size:2001100 align:25 gran:0 limit:febfffff
+Assigned: PCI: 00:02.0 10 *  [0xfc000000 - 0xfdffffff] prefmem
+Assigned: PCI: 00:02.0 14 *  [0xfe000000 - 0xfe000fff] mem
+Assigned: PCI: 00:03.0 14 *  [0xfe001000 - 0xfe0010ff] mem
+PCI_DOMAIN: 0000 allocate_resources_mem: next_base: fe001100 size: 2001100 align: 25 gran: 0 done
+Root Device assign_resources, bus 0 link: 0
+Detected 65536 Kbytes (64 MiB) RAM.
+PCI_DOMAIN: 0000 assign_resources, bus 0 link: 0
+PCI: 00:01.1 20 <- [0x0000001400 - 0x000000140f] size 0x00000010 gran 0x04 io
+PCI: 00:02.0 10 <- [0x00fc000000 - 0x00fdffffff] size 0x02000000 gran 0x19 prefmem
+PCI: 00:02.0 14 <- [0x00fe000000 - 0x00fe000fff] size 0x00001000 gran 0x0c mem
+PCI: 00:03.0 10 <- [0x0000001000 - 0x00000010ff] size 0x00000100 gran 0x08 io
+PCI: 00:03.0 14 <- [0x00fe001000 - 0x00fe0010ff] size 0x00000100 gran 0x08 mem
+PCI_DOMAIN: 0000 assign_resources, bus 0 link: 0
+Root Device assign_resources, bus 0 link: 0
+Done setting resources.
+Show resources in subtree (Root Device)...After assigning values.
+ Root Device child on link 0 PCI_DOMAIN: 0000
+  PCI_DOMAIN: 0000 child on link 0 PCI: 00:00.0
+  PCI_DOMAIN: 0000 resource base 1000 size 410 align 8 gran 0 limit e3ff flags 40040100 index 10000000
+  PCI_DOMAIN: 0000 resource base fc000000 size 2001100 align 25 gran 0 limit febfffff flags 40040200 index 10000100
+  PCI_DOMAIN: 0000 resource base fec00000 size 100000 align 0 gran 0 limit ffffffff flags e0000200 index 2
+  PCI_DOMAIN: 0000 resource base fee00000 size 10000 align 0 gran 0 limit ffffffff flags e0000200 index 3
+  PCI_DOMAIN: 0000 resource base 0 size a0000 align 0 gran 0 limit 0 flags e0004200 index a
+  PCI_DOMAIN: 0000 resource base c0000 size 3f40000 align 0 gran 0 limit 0 flags e0004200 index b
+   PCI: 00:00.0
+   PCI: 00:01.0
+   PCI: 00:01.0 resource base 0 size 1000 align 0 gran 0 limit ffff flags c0000100 index 1
+   PCI: 00:01.0 resource base ff800000 size 800000 align 0 gran 0 limit 0 flags d0000200 index 2
+   PCI: 00:01.1
+   PCI: 00:01.1 resource base 1400 size 10 align 4 gran 4 limit e3ff flags 60000100 index 20
+   PCI: 00:01.3
+   PCI: 00:01.3 resource base e400 size 40 align 0 gran 0 limit ffff flags d0000100 index 1
+   PCI: 00:01.3 resource base f00 size 10 align 0 gran 0 limit ffff flags d0000100 index 2
+   PCI: 00:02.0
+   PCI: 00:02.0 resource base fc000000 size 2000000 align 25 gran 25 limit febfffff flags 60001200 index 10
+   PCI: 00:02.0 resource base fe000000 size 1000 align 12 gran 12 limit febfffff flags 60000200 index 14
+   PCI: 00:03.0
+   PCI: 00:03.0 resource base 1000 size 100 align 8 gran 8 limit e3ff flags 60000100 index 10
+   PCI: 00:03.0 resource base fe001000 size 100 align 8 gran 8 limit febfffff flags 60000200 index 14
+Done allocating resources.
+Enabling resources...
+PCI: 00:00.0 cmd <- 00
+PCI: 00:01.0 cmd <- 00
+PCI: 00:01.1 cmd <- 01
+PCI: 00:01.3 cmd <- 00
+PCI: 00:02.0 cmd <- 03
+PCI: 00:03.0 cmd <- 03
+done.
+Initializing devices...
+Root Device init
+PCI: 00:00.0 init
+Keyboard init...
+Setting up ethernet...
+Assigning IRQ 11 to 0:3.0
+i8259_configure_irq_trigger: current interrupts are 0x0
+i8259_configure_irq_trigger: try to set interrupts 0x800
+PCI: 00:01.0 init
+RTC Init
+PCI: 00:01.1 init
+IDE: Primary IDE interface: on
+IDE: Secondary IDE interface: on
+IDE: Access to legacy IDE ports: off
+PCI: 00:02.0 init
+CBFS: Looking for 'pci1013,00b8.rom'
+CBFS: Could not find file 'pci1013,00b8.rom'.
+Option ROM address for PCI: 00:02.0 = c0000
+PCI expansion ROM, signature 0x0000, INIT size 0x0000, data ptr 0x0000
+Incorrect expansion ROM header signature 0000
+PCI: 00:03.0 init
+CBFS: Looking for 'pci10ec,8139.rom'
+CBFS: Could not find file 'pci10ec,8139.rom'.
+Devices initialized
+Show all devs...After init.
+Root Device: enabled 1
+PCI_DOMAIN: 0000: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:01.0: enabled 1
+PCI: 00:01.1: enabled 1
+PCI: 00:01.3: enabled 1
+PCI: 00:02.0: enabled 1
+PCI: 00:03.0: enabled 1
+Re-Initializing CBMEM area to 0x3ee0000
+Initializing CBMEM area to 0x3ee0000 (1179648 bytes)
+Adding CBMEM entry as no. 1
+Moving GDT to 03ee0200...ok
+High Tables Base is 3ee0000.
+Copying Interrupt Routing Table to 0x000f0000... done.
+Adding CBMEM entry as no. 2
+Copying Interrupt Routing Table to 0x03ee0400... done.
+PIRQ table: 128 bytes.
+Adding CBMEM entry as no. 3
+ACPI tables: 0 bytes.
+ERROR: Didn't find RSDP in high table.
+Adding CBMEM entry as no. 4
+smbios_write_tables: 03eec800
+Root Device (Emulation QEMU x86)
+PCI_DOMAIN: 0000 (QEMU Northbridge)
+PCI: 00:00.0 (QEMU Northbridge)
+PCI: 00:01.0 (Intel 82371FB/SB/MX/AB/EB/MB Southbridge)
+PCI: 00:01.1 (Intel 82371FB/SB/MX/AB/EB/MB Southbridge)
+PCI: 00:01.3 (unknown)
+PCI: 00:02.0 (unknown)
+PCI: 00:03.0 (unknown)
+SMBIOS tables: 370 bytes.
+Adding CBMEM entry as no. 5
+Writing high table forward entry at 0x00000500
+Wrote coreboot table at: 00000500, 0x10 bytes, checksum 2bf0
+New low_table_end: 0x00000528
+Now going to write high coreboot table at 0x03eed000
+rom_table_end = 0x03eed000
+Adjust low_table_end from 0x00000528 to 0x00001000 
+Adjust rom_table_end from 0x03eed000 to 0x03ef0000 
+Adding high table area
+coreboot memory table:
+ 0. 0000000000000000-0000000000000fff: CONFIGURATION TABLES
+ 1. 0000000000001000-000000000009ffff: RAM
+ 2. 00000000000c0000-0000000003edffff: RAM
+ 3. 0000000003ee0000-0000000003ffffff: CONFIGURATION TABLES
+ 4. 00000000ff800000-00000000ffffffff: RESERVED
+Wrote coreboot table at: 03eed000, 0x1ec bytes, checksum 53ce
+coreboot table: 516 bytes.
+Adding CBMEM entry as no. 6
+Multiboot Information structure has been written.
+ 0. FREE SPACE 03ff5000 0000b000
+ 1. GDT        03ee0200 00000200
+ 2. IRQ TABLE  03ee0400 00001000
+ 3. ACPI       03ee1400 0000b400
+ 4. SMBIOS     03eec800 00000800
+ 5. COREBOOT   03eed000 00008000
+ 6. ACPI RESUME03ef5000 00100000
+CBFS: Looking for 'fallback/payload'
+CBFS: found.
+Loading segment from rom address 0xffe0d638
+  code (compression=0)
+  New segment dstaddr 0x100000 memsize 0x14c070 srcaddr 0xffe0d670 filesize 0x1062c8
+  (cleaned up) New segment addr 0x100000 size 0x14c070 offset 0xffe0d670 filesize 0x1062c8
+Loading segment from rom address 0xffe0d654
+  Entry Point 0x00000000
+Loading Segment: addr: 0x0000000000100000 memsz: 0x000000000014c070 filesz: 0x00000000001062c8
+lb: [0x0000000000100000, 0x0000000000121000)
+segment: [0x0000000000100000, 0x00000000002062c8, 0x000000000024c070)
+   late: [0x0000000000121000, 0x00000000002062c8, 0x000000000024c070)
+ bounce: [0x0000000003d72f90, 0x0000000003d93f90, 0x0000000003d93f90)
+Post relocation: addr: 0x0000000003d72f90 memsz: 0x0000000000021000 filesz: 0x0000000000021000
+it's not compressed!
+[ 0x03d72f90, 03d93f90, 0x03d93f90) <- ffe0d670
+dest 03d72f90, end 03d93f90, bouncebuffer 3d72f90
+Loading Segment: addr: 0x0000000000121000 memsz: 0x000000000012b070 filesz: 0x00000000000e52c8
+lb: [0x0000000000100000, 0x0000000000121000)
+Post relocation: addr: 0x0000000000121000 memsz: 0x000000000012b070 filesz: 0x00000000000e52c8
+it's not compressed!
+[ 0x00121000, 002062c8, 0x0024c070) <- ffe2e670
+Clearing Segment: addr: 0x00000000002062c8 memsz: 0x0000000000045da8
+dest 00121000, end 0024c070, bouncebuffer 3d72f90
+Loaded segments
+Jumping to boot code at 100000
+CPU0: stack: 0011c000 - 0011d000, lowest used address 0011cb68, stack used: 1176 bytes
+entry    = 0x00100000
+lb_start = 0x00100000
+lb_size  = 0x00021000
+adjust   = 0x03dbf000
+buffer   = 0x03d72f90
+     elf_boot_notes = 0x001179b8
+adjusted_boot_notes = 0x03ed69b8
+
+UEFI Loader started [0x100000-0x24c06f]
+	UEFI Stack:	[0x208000-0x227fff] (131072 Bytes)
+	Heap:      	[0x228070-0x24806f] (131072 Bytes)
+	Stack:     	[0x248070-0x24c06f] (16384 Bytes)
+UEFI Firmware Volume:	[0x105df8-0x205df7] (1048576 Bytes)
+Coreboot Tables at 0x500
+DXE Core is at 0x105e5c (281288 Bytes)
+	Loaded Size:	0x31e64 (204388 Bytes)
+	Buffer Size:	0x32000 (204800 Bytes)
+	ELF Buffer:	0x300000
+Copying 191028 bytes from 0x106e5c to 0x300000
+Copying 4468 bytes from 0x13589c to 0x32fa40
+Image lowest 0x0
+Image base 0x300000
+Image offset 0x300000
+Image entry point 0x300000
+	Entry Point:	0x300000
+elf_lookup_symbol(): Failed to look up symbol 475!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+elf_lookup_symbol(): Failed to look up symbol 1!
+--> cbtbl_memory(addr=0x3eed018): tag=0x1, size=108
+	[0x00000000 - 0x00000fff]  type=16, size=4096
+	[0x00001000 - 0x0009ffff]  type=1, size=651264
+	[0x000c0000 - 0x03edffff]  type=1, size=65142784
+	[0x03ee0000 - 0x03ffffff]  type=16, size=1179648
+	[0xff800000 - 0xffffffff]  type=2, size=8388608
+<-- cbtbl_memory
+Total Memory Space: [0x0000000000000000 - 0x0000000003ffffff]
+Boot Flash:         [0x00000000ff800000 - 0x00000000ffffffff]
+FW Volume Shadow:   [0x0000000003f00000 - 0x0000000003ffffff]
+Handing control to DXE core...
+

@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>
+    wb_i2c_slave - An I2C to Wishbone Bridge for FPGAs
+  </title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" media="screen" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" media="print" type="text/css" href="../css/print.css" />
+  <link rel="stylesheet" href="../wb_i2c_slave/" type="text/css" />
+
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+
+  
+
+  <script type="text/javascript">
+    /*
+     * If you're wondering what all this is about: I'm hoping that this will
+     * keep most web crawlers from harvesting my Email address while still
+     * giving nearly all users a "clickable" Email link.
+     */
+    function load() {
+      var menu_email = document.getElementById("menu_email");
+      var email = document.getElementById("email");
+
+      var menu_href = document.createAttribute("href");
+      var href = document.createAttribute("href");
+
+      var address = "mailto:";
+      address += "phs";
+      address += "@";
+      address += "deadc0";
+      address += ".";
+      address += "de"
+
+      menu_href.nodeValue=address;
+      href.nodeValue=address;
+
+      menu_email.setAttributeNode(menu_href);
+      if  (email) email.setAttributeNode(href);
+    }
+  </script>
+ </head>
+ <body onload="load()">
+
+ <div class="top_menu">
+   <h2 class="top_menu">Navigation</h2>
+   <ol class="top_menu">
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/">
+       Home
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="#Projects">
+       Projects
+      </a>
+     </span>
+
+      <ul class="top_submenu">
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/efiboot/index.html">efiboot</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/xc3s400a/index.html">FPGA</a>
+        </span>
+        <ul class="top_sub2menu">
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_gpio/index.html">gpio</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_i2c_slave/index.html">i2c_slave</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_spimaster/index.html">spimaster</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_switch/index.html">wb_switch</a>
+          </span>
+         </li>
+        </ul>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/glxiic/index.html">glxiic</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/loopinglouie/index.html">Looping Louie</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/obd2diag/index.html">OBD-II Diagnostics Tool</a>
+        </span>
+       </li>
+      </ul>
+    </li>
+
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/blog">
+       Blog
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/music">
+       Music
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="http://www.flickr.com/photos/deadc0de/">
+       Photos
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" id="menu_email">
+       Contact
+      </a>
+     </span>
+    </li>
+   </ol>
+ </div>
+
+ <div id="menu">
+  <h2 class="menu">Contents</h2>
+  <ul class="menu">
+   <li class="menu"><a href="#top">Top</a></li>
+<li class="menu"><a href="#overview">Overview</a></li>
+<li class="menu"><a href="#usage">Usage</a></li>
+<li class="menu"><a href="#registers">Registers</a></li>
+<li class="menu"><a href="#i2c">I2C Behavior</a></li>
+<li class="menu"><a href="#wishbone">Wishbone Behavior</a></li>
+<li class="menu"><a href="#caveats">Caveats</a></li>
+<li class="menu"><a href="#download">Download</a></li>
+<li class="menu"><a href="#links">Links</a></li>
+
+    <li class="menu"><a href="#contact">Contact</a></li>
+   <li class="menu"><a href="#share">Share</a></li>
+  </ul>
+ </div>
+
+ <div id="content">
+   <a name="top" id="top"></a>
+<h1>wb_i2c_slave - An I2C to Wishbone Bridge for FPGAs</h1>
+<p>This is the project homepage for <span class="code">wb_i2c_slave</span>, an
+I2C slave device implementation that acts as a master for the Wishbone bus. The
+engine was designed for FPGAs and written in VHDL.</p>
+
+<p>Last updated: <span class="code">$Date$</span>.</p>
+
+<a name="overview" id="overview"></a>
+<h2>Overview</h2>
+<p>The <span class="code">wb_i2c_slave</span> is an I2C slave implementation
+for FPGAs that translates I2C requests to the Wishbone bus. It allows clients to
+generate cycles on the Wishbone bus in an FPGA design through the I2C protocol.
+The design is supposed to be configurable through generics, but there hasn't
+been a lot of test coverage for values other than the defaults.</p>
+
+<p>The module's internal architecture is divided into an I2C bus sampling logic
+and a Wishbone master interface logic.</p>
+
+<p>The module doesn't impose a maximum speed requirement on the I2C clock.
+Because the module samples the I2C clock based on its own logic clock, the
+maximum I2C speed is determined by the ratio between I2C clock and logic clock.
+Internally, the I2C clock is not only sampled but also debounced. Sampling
+occurs at the speed of the logic clock; debouncing works through an eight-bit
+shift register. In effect, the logic clock should run faster than the I2C clock
+by at least a factor of 16. Higher factors will work better.</p>
+
+<a name="usage" id="usage"></a>
+<h2>Usage</h2>
+<p>Using the <span class="code">wb_i2c_slave</span> component in your VHDL
+design is as easy as declaring and instantiating any other component. Below is
+the VHDL entity declaration of the component.</p>
+
+<div class="code">
+  <object data="i2c_slave.txt" type="text/plain" width="100%">
+    <p>Your browser apparently cannot display embedded frames. Try viewing the
+    example directly <a href="i2c_slave.txt">here</a>.</p>
+  </object>
+</div>
+
+<p>The design is customizable through a few generics, which are described in the
+following table.</p>
+
+<div class="datasheet">
+  <table class="datasheet">
+    <tr>
+      <th>Generic</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td class="variable">dat_sz</td>
+      <td class="description">Width of Wishbone data bus. This also determines
+      the size of the internal I2C registers. The module will probably not work
+      if this generic is set to a value other than 8.</td>
+    </tr>
+    <tr>
+      <td class="variable">off_sz</td>
+      <td class="description">Determines the width Wishbone address bus. This
+      also affects the width of the I2C address register.</td>
+    </tr>
+    <tr>
+      <td class="variable">pg_sz</td>
+      <td class="description">Determines the page size of the Wishbone bus,
+      therefore the granulatiry of addressing. Given in powers of two, i.e. one
+      page contains 2**pg_sz nibbles (size of nibble == dat_sz). The module will
+      probably not work correctly if this is set to something other than 1.</td>
+    </tr>
+    <tr>
+      <td class="variable">increment_target</td>
+      <td class="description">Increment Target Register. If set, consecutive
+      read or write access cycles will increment the internal target register by
+      one.</td>
+    </tr>
+    <tr>
+      <td class="variable">i2c_adr</td>
+      <td class="description">I2C bus address of the device.</td>
+    </tr>
+  </table>
+</div>
+
+<a name="registers" id="registers" ></a>
+<h2>Registers</h2>
+<p>The module does not have user accessible registers.</p>
+
+<a name="i2c" id="i2c" ></a>
+<h2>I2C Behavior</h2>
+<p>An example I2C write cycle sequence understood by this module looks like
+this:</p>
+<div class="code">
+    [START], [Device Address w/ Write Bit],
+    [Wishbone Address MSB], ..., [Wishbone Address LSB],
+    [Data Byte #0], [Data Byte #1], ..., [STOP]
+</div>
+
+<p>If the <span class="code">increment_target</span> generic is set to 1, this
+will generate a write cycle writing <span class="code">[Data Byte #0]</span> to
+Wishbone address <span class="code">[MSB..LSB]</span> followed by a write cycle
+writing <span class="code">[Data Byte #1]</span> to the Wishbone address <span
+class="code">([MSB..LSB] + 1)</span>, etc.</p>
+
+<p>If the <span class="code">increment_target</span> generic is set to 0, this
+will generate a write cycle writing <span class="code">[Data Byte #0]</span> to
+Wishbone address <span class="code">[MSB..LSB]</span> followed by a write cycle
+writing <span class="code">[Data Byte #1]</span> to the same Wishbone address.</p>
+
+<p>An example I2C read cycle sequence understood by this module looks like
+this:</p>
+<div class="code">
+    [START], [Device Address w/ Write Bit],
+    [Wishbone Address MSB], ..., [Wishbone Address LSB],
+    [Repeated START], [Device Address w/ Read Bit],
+    [Data Byte #0], [Data Byte #1], ..., [STOP]
+</div>
+
+<p>If the <span class="code">increment_target</span> generic is set to 1, this
+will generate a read cycle reading from Wishbone address <span
+class="code">[MSB..LSB]</span> returning <span class="code">[Data Byte
+#0]</span> followed by a read cycle from the Wishbone address <span
+class="code">([MSB..LSB] + 1)</span> returning <span class="code">[Data Byte
+#1]</span>, etc.</p>
+
+<p>If the <span class="code">increment_target</span> generic is set to 0, this
+will generate read cycles repeatedly reading from Wishbone address <span
+class="code">[MSB..LSB]</span> returning <span class="code">[Data Byte
+#0]</span> followed by returning <span class="code">[Data Byte #1]</span>,
+etc.</p>
+
+<p>The device will stall the I2C clock while Wishbone transfers are in
+progress.</p>
+
+<a name="wishbone" id="wishbone" ></a>
+<h2>Wishbone Behavior</h2>
+<p>The module acts as a Wishbone master. It generates classic read/write
+cycles and does not support classic pipelined read/write operations. Thus, it
+does not honor the <span class="code">stall</span> signal which may be generated
+by slaves.</p>
+
+<p>The Wishbone <span class="code">cyc</span> signal is asserted as soon as the
+I2C logic has decoded the I2C address and determined that the module is being
+targeted. It is released once the I2C transfer is complete and the logic has
+entered the idle state again. This behavior is useful if the Wishbone interface
+is connected to an actual bus with multiple master/slave participants which
+requires an arbiter. Keeping the <span class="code">cyc</span> signal asserted
+ensures that the Wishbone bus is held exclusively while the I2C transfer is in
+progress, i.e. no other Wishbone master can issue transfers in parallel.</p>
+
+<p>The Wishbone <span class="code">stb</span> signal is asserted only while a
+Wishbone transfer is in progress. The signal is being kept active until the
+Wishbone master logic has seen a response from a slave, i.e. either an <span
+class="code">ack</span> or an error response.</p>
+
+<a name="caveats" id="caveats" ></a>
+<h2>Caveats</h2>
+<p>The module does not contain any kind of watchdog logic. Hence, the described
+I2C and Wishbone behavior can effectively lock up all Wishbone logic if a
+Wishbone slave fails to generate a response to a generated Wishbone cycle. This
+is the case if an I2C transfer attempts to target a Wishbone address to which no
+slave is registered.</p>
+
+<p>Because the device stalls the I2C clock while Wishbone transfers are in
+progress, such a situation can also block the I2C bus.</p>
+
+<p>Resolving this situation is outside the scope of the <span
+class="code">wb_i2c_slave</span> logic. If the behavior is dangerous or
+undesirable in your logic design, I suggest you resolve it in the Wishbone
+interconnect logic, e.g. by building watchdog logic into your Wishbone
+interconnect.</p>
+
+<a name="download" id="download" ></a>
+<h2>Download</h2>
+<p>
+Below are the links to the VHDL files.</p>
+
+<ul>
+  <li>I2C Interface, <a href="../vhdl/i2c_sync.vhd">i2c_sync.vhd</a></li>
+  <li>Wishbone Master Interface, <a href="../vhdl/wb_i2c_slave.vhd">wb_i2c_slave.vhd</a></li>
+  <li>Address Register, <a href="../vhdl/register_addr.vhd">register_addr.vhd</a></li>
+  <li>Shift Left Register, <a href="../vhdl/register_shl.vhd">register_shl.vhd</a></li>
+  <li>Shift Right Register with parallel Load, <a
+  href="../vhdl/register_shr_pload.vhd">register_shr_pload.vhd</a></li>
+</ul>
+
+<a name="links" id="links"></a>
+<h2>Links</h2>
+<p>Here are a few links related to this project.</p>
+
+<ul>
+ <li>Wikipedia Article on the <a href="http://en.wikipedia.org/wiki/Wishbone_(computer_bus)">Wishbone Bus</a>.</li>
+ <li>The <a href="http://cdn.opencores.org/downloads/wbspec_b4.pdf">Wishbone Bus Specification</a>, Rev. B4</li>
+ <li>Wikipedia Article on the <a href="http://en.wikipedia.org/wiki/I2C">I2C Bus</a>.</li>
+ <li>The <a href="http://www.nxp.com/documents/other/39340011.pdf">I2C Bus Specification</a>, Vers. 2.1 (January 2000).</li>
+</ul>
+
+
+
+    <a name="contact" id="contact"></a>
+    <h2>Contact</h2>
+    <p>Contact the author Philip Schulz by <a id="email">Email</a>.</p>
+ </div>
+
+ <div class="logo">
+   <div class="footer">&nbsp;</div>
+   <a class="logo" href="http://validator.w3.org/check?uri=referer">
+     <img class="logo" src="http://www.w3.org/Icons/valid-xhtml10-blue"
+       alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+   </a>
+   <a class="logo" href="http://jigsaw.w3.org/css-validator/">
+    <img class="logo" style="border:0;width:88px;height:31px"
+      src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+      alt="Valid CSS!" />
+   </a>
+ </div>
+
+ </body>
+</html>

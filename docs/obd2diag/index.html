@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>
+    obd2diag - OBD-II via Bluetooth Adapter
+  </title>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" media="screen" type="text/css" href="../css/style.css" />
+  <link rel="stylesheet" media="print" type="text/css" href="../css/print.css" />
+  <link rel="stylesheet" href="../obd2diag/obd2diag.css" type="text/css" />
+
+  <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+
+  
+          <!-- Lightbox 2 -->
+          <script type="text/javascript" src="../js/prototype.js"></script>
+          <script type="text/javascript" src="../js/scriptaculous.js?load=effects,builder"></script>
+          <script type="text/javascript" src="../js/lightbox.js"></script>
+        
+
+  <script type="text/javascript">
+    /*
+     * If you're wondering what all this is about: I'm hoping that this will
+     * keep most web crawlers from harvesting my Email address while still
+     * giving nearly all users a "clickable" Email link.
+     */
+    function load() {
+      var menu_email = document.getElementById("menu_email");
+      var email = document.getElementById("email");
+
+      var menu_href = document.createAttribute("href");
+      var href = document.createAttribute("href");
+
+      var address = "mailto:";
+      address += "phs";
+      address += "@";
+      address += "deadc0";
+      address += ".";
+      address += "de"
+
+      menu_href.nodeValue=address;
+      href.nodeValue=address;
+
+      menu_email.setAttributeNode(menu_href);
+      if  (email) email.setAttributeNode(href);
+    }
+  </script>
+ </head>
+ <body onload="load()">
+
+ <div class="top_menu">
+   <h2 class="top_menu">Navigation</h2>
+   <ol class="top_menu">
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/">
+       Home
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="#Projects">
+       Projects
+      </a>
+     </span>
+
+      <ul class="top_submenu">
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/efiboot/index.html">efiboot</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/xc3s400a/index.html">FPGA</a>
+        </span>
+        <ul class="top_sub2menu">
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_gpio/index.html">gpio</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_i2c_slave/index.html">i2c_slave</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_spimaster/index.html">spimaster</a>
+          </span>
+         </li>
+         <li class="top_sub2menu">
+          <span class="top_sub2menu">
+           <a class="top_sub2menu" href="../../website/wb_switch/index.html">wb_switch</a>
+          </span>
+         </li>
+        </ul>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/glxiic/index.html">glxiic</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/loopinglouie/index.html">Looping Louie</a>
+        </span>
+       </li>
+
+       <li class="top_submenu">
+        <span class="top_submenu">
+         <a class="top_submenu" href="../../website/obd2diag/index.html">OBD-II Diagnostics Tool</a>
+        </span>
+       </li>
+      </ul>
+    </li>
+
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/blog">
+       Blog
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="/music">
+       Music
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" href="http://www.flickr.com/photos/deadc0de/">
+       Photos
+      </a>
+     </span>
+    </li>
+    <li class="top_menu">
+     <span class="top_menu">
+      <a class="top_menu" id="menu_email">
+       Contact
+      </a>
+     </span>
+    </li>
+   </ol>
+ </div>
+
+ <div id="menu">
+  <h2 class="menu">Contents</h2>
+  <ul class="menu">
+   <li class="menu"><a href="#home">Top</a></li>
+<li class="menu"><a href="#overview">Overview</a></li>
+<li class="menu"><a href="#background">Background</a></li>
+<li class="menu"><a href="#architecture">Architecture</a></li>
+<li class="menu"><a href="#usage">Usage</a></li>
+<li class="menu"><a href="#pictures">Pictures</a></li>
+<li class="menu"><a href="#errata">Errata</a></li>
+<li class="menu"><a href="#downloads">Downloads</a></li>
+<li class="menu"><a href="#links">Links</a></li>
+
+
+    <li class="menu"><a href="#contact">Contact</a></li>
+   <li class="menu"><a href="#share">Share</a></li>
+  </ul>
+ </div>
+
+ <div id="content">
+   <a name="home" id="home"></a>
+<h1>obd2diag - An OBD-II via Bluetooth Diagnostics Tool</h1>
+<p>This is the project homepage for &quot;obd2diag&quot;, an On-board
+Diagnostics (OBD-II) to Bluetooth adapter, based on the ELM-327 Controller and
+the BTM-222 Bluetooth module.</p>
+
+<p>Last updated: <span class="code">$Date$</span>.</p>
+
+<a name="overview" id="overview"></a>
+<h2>Overview</h2>
+<p>The obd2diag board lets you interface with your vehicle's OBD-II port over
+bluetooth. Using the ELM-327 controller makes the board suitable for almost all
+types of vehicles. The BTM-222 Bluetooth adapter provides an elegant way of
+galvanic isolation between your computer and your car. Also, most smartphones
+are capable of pairing with other Bluetooth devices. So theoretically, one could
+use the obd2diag board to perform car diagnosis from a smartphone.</p>
+
+<a name="background" id="background"></a>
+<h2>Background</h2>
+<p>Most modern cars have an OBD-II interface, which is a standardized way of
+reading out various sensor and diagnostics data from the vehicle. OBD-II is
+mostly for the emission related parts of the vehicle and essentially defines
+three things:</p>
+
+  <ol>
+    <li>A standard connector and the fact that every car must have one.</li>
+    <li>The kind of data that is to be provided through the OBD-II interface,
+    e.g. emission sensors, as well as standard &quot;addresses&quot; for the
+    various sensors, called &quot;Parameter IDs&quot; (PIDs).</li>
+    <li>The &quot;check engine&quot; light and many error codes behind it.</li>
+  </ol>
+
+<p>Unfortunately, the OBD-II specification seems to be a combination of multiple
+official and/or industry standards which sometimes apparently have evolved from
+manufacturers' standards. This means that there is quite a variety of different
+implementations.</p>
+
+<p>The variety of different implementations becomes obvious when looking at the
+allowed protocols through which the OBD-II data may be provided. These are the
+onces I found out about through the various online resources:</p>
+
+  <ul>
+    <li>SAE J1850 Pulse-width modulation (PWM).</li>
+    <li>SAE J1850 Variable pluse width (VPW).</li>
+    <li>ISO 9141-2, sometimes also called &quot;K-&quot; or
+    &quot;KL-line&quot;.</li>
+    <li>ISO 14230 Keyword Protocol 2000 (KWP2000).</li>
+    <li>ISO 15756, in the OBD-II context often referred to as CAN.</li>
+  </ul>
+
+<p>So in summary, OBD-II defines what data must be provided, but not exactly how
+it is to be provided, except for the physical connector.  </p>
+
+<p>Apparently, most European cars provide the OBD-II data through the K-line,
+which seems to be almost trivial to connect to using a computer. All it takes
+seems to be a USB-to-UART converter and a bunch of transistors for level
+shifting. A quick search reveals that fully assembled adapters are sold for
+around 15 EUR at the time of writing.</p>
+
+<p>However, my car (an &quot;Opel&quot; for what it's worth) uses the CAN
+protocol/bus to provide the OBD-II data, so the cheap adapters aren't suitable
+for me. I did find adapters that supported my car, but they were more than 100
+EUR which seemed like a bit much for basically reading out error codes.</p>
+
+<p>Luckily, I stumbled across the ELM-327 controller which supports most or all
+OBD-II protocols. Since I was looking for a project, I decided to build an
+ELM-327 based OBD-II adapter to diagnose my car. Of course, buying a ready-made
+adapter would have been cheaper, but then again, that wouldn't have been half
+the fun. The following paragraphs describe my build and how to use it.</p>
+
+<a name="architecture" id="architecture"></a>
+<h2>Architecture</h2>
+<p>As illustrated by the image below, the obd2diag board consists of three main
+parts: The power supply, the bluetooth module BTM-222 and the OBD-II
+controller ELM-327. The BTM-222 device operates at 3.3 Volts; the ELM-327 runs
+at 5 Volts. Both are connected through a UART.</p>
+
+<div class="img">
+  <img src="img/arch.png" style="width: 60%" alt="Block Diagram" />
+  <span class="img">Fig. 1: Block Diagram</span>
+</div>
+
+<h3>UART connection</h3>
+<p>Because at least some level shifting logic would have been required to make
+the ELM-327 and the BTM-222 work together on the UART connection, and because I
+wanted to allow for easy debugging from a PC, I decided to add two RS-232
+converters for the two UARTs. By placing two pin headers side by side, it's easy
+to connect to either the BTM-222 or the ELM-327 directly. Jumpers can be used to
+connect the two UARTs in the finished product.</p>
+
+<h3>Power Supply</h3>
+<p>The power supply provides 3.3V and 5V for the two component blocks. In
+retrospect, I should have generated 8V off the power supply, too, because that
+voltage is required for some of the logic surrounding the ELM-327.  That way, I
+would have ended up with less different parts.</p>
+
+<p>The nominal supply voltage is 12V. However, from what I gathered on the
+internet, the car power supply can vary between 8V and 24V in various situations
+(e.g. car starting, jump start). Also, it is desirable to have a circuit breaker
+because the car battery is powerful to supply enough current to fry pretty much
+any kind of micro-electronics componentry. Besides that, it may be a good idea
+to build in some kind of reverse voltage protection. I stumbled across a sample
+circuit on <a
+href="http://www.dse-faq.elektronik-kompendium.de/dse-faq.htm#F.23">how to build
+a car power supply</a> (German) wich I decided to follow.</p>
+
+<p>Finally, I wanted to be able to power the circuit from a lab power supply
+without too much hassle. So I added a standard connector and a jumper which lets
+me select whether the board is to be fed from the OBD-II adapter or the standard
+connector.</p>
+
+<h3>Bluetooth module</h3>
+<p>The connections of the bluetooth module are kept to a minimum. The only extra
+component I added is a blue LED that flashes when there is bluetooth activity. I
+figured this would help me debug. In the end, it wasn't required. Also, the
+antenna is a simple piece of wire. The wire has a length of 31mm and should form
+a &#x3bb;/4 antenna. This simple hack is enough to connect a laptop from a few
+meters away.</p>
+
+<h3>ELM-327</h3>
+<p>The ELM-327 part is the easiest to explain: It's mostly a copy of the
+reference design shown in the device's data sheet (pg. 67) minus the power
+supply and the UART connection. I did however include parts of the suggested
+modifications to safe power (fig. 12 on pg. 71 of the data sheet).</p>
+
+<h3>Physical Layout</h3>
+<p>This the first board I designed. Also, I felt that given the number of
+components the project requires, I wanted to have the circuit board
+manufactured. In order to be able to debug and correct errors later on, I wanted
+to add lots of debug points such as LEDs and solderable connections.</p>
+
+<a name="usage" id="usage" ></a>
+<h2>Usage</h2>
+<h3>ELM-327 Commands</h3>
+<p>The ELM-327 accepts <span class="code">AT</span>-style commands. The command
+set is documented in the user's guide. Here's a list of the most important
+commands:</p>
+
+<ul>
+  <li><span class="code">AT Z</span> to reset the ELM-327.</li>
+  <li><span class="code">AT SP 0"</span> to make the ELM-327 search for a
+  connection with the car.</li>
+</ul>
+
+<h3>Linux Bluetooth Serial Connection</h3>
+<p>Here's a quick guide on how to connect to the BTM-222 module via Bluetooth on
+a Linux laptop. First, you need to scan the Bluetooth airspace for the device's
+ID as follows:</p>
+
+<div class="code">
+$ hcitool scan
+<br />
+Scanning ...
+<br />
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+00:12:6F:22:53:53       btm222
+</div>
+
+<p>At this point, you can connect to the device:</p>
+
+<div class="code">
+$ sudo rfcomm bind 0 00:12:6F:22:53:53
+<br />
+$ sudo rfcomm show 0
+<br />
+rfcomm0: 00:12:6F:22:53:53 channel 1 clean
+</div>
+
+<p>The above should have made a file <span class="code">/dev/rfcomm0</span> to
+appear on the laptop. You can use e.g. <span class="code">minicom</span> to talk
+to the BTM-222 through this device file. The BTM-222 is setup up as 38400
+8N1.</p>
+
+<p>In the serial line session with the BTM-222, you can always hit <span
+class="code">atz</span>, which is the command to reset the ELM-327. If
+everything went well, it should look like this:</p>
+
+<div class="code">
+&gt;atz
+<br />
+<br />
+ELM327 v1.4b
+<br />
+<br />
+&gt;
+</div>
+
+<a name="pictures" id="pictures" ></a>
+<h2>Pictures</h2>
+<p>Here's a set of pictures that show what the finished project looks like:</p>
+
+<div class="pictures">
+  <span class="picture">
+    <a href="img/IMG_4933.jpg" title="Board" rel="lightbox[obd2diag]">
+     <img class="thumbnail" src="thumbs/IMG_4933.jpg" alt="Board" />
+    </a>
+  </span>
+  <span class="picture">
+    <a href="img/IMG_4925.jpg" title="Power Supply Jumper" rel="lightbox[obd2diag]">
+     <img class="thumbnail" src="thumbs/IMG_4925.jpg" alt="Power Supply Jumper" />
+    </a>
+  </span>
+  <span class="picture">
+    <a href="img/IMG_4922.jpg" title="RS-232 Jumper" rel="lightbox[obd2diag]">
+     <img class="thumbnail" src="thumbs/IMG_4922.jpg" alt="RS-232 Jumper" />
+    </a>
+  </span>
+</div>
+<div class="pictures">
+  <span class="picture">
+    <a href="img/IMG_4934.jpg" title="RS-232 Adapter Cables" rel="lightbox[obd2diag]">
+     <img class="thumbnail" src="thumbs/IMG_4934.jpg" alt="RS-232 Adapter Cables" />
+    </a>
+  </span>
+  <span class="picture">
+    <a href="img/IMG_4923.jpg" title="Rx/Tx Fix" rel="lightbox[obd2diag]">
+     <img class="thumbnail" src="thumbs/IMG_4923.jpg" alt="Rx/Tx Fix" />
+    </a>
+  </span>
+  <span class="picture">
+    <a href="img/IMG_4931.jpg" title="CAN Transceiver" rel="lightbox[obd2diag]">
+     <img class="thumbnail" src="thumbs/IMG_4931.jpg" alt="CAN Transceiver" />
+    </a>
+  </span>
+</div>
+
+<p>The pictures show, in order:</p>
+<ul>
+  <li>The complete board, in all its (reworked) beauty.</li>
+  <li>The power supply jumper that lets me select between a standard power
+  supply and the OBD-2 connector.</li>
+  <li>Home-made jumpers that connect the RS-232 Ports of the ELM-327 and the
+  BTM-222 bluetooth module.</li>
+  <li>A couple of adapter cables that can be used to connect a PC directly to
+  either the ELM-327 or the BTM-222.</li>
+  <li>A fix for the only real errata on the PCB (see <a href="#errata">errata
+  section</a> below).</li>
+  <li>Breadboard that replaced a broken MCP2551 CAN Transceiver.</li>
+</ul>
+
+<a name="errata" id="errata" ></a>
+<h2>Errata</h2>
+<p>Of course, there are a few bugs in the design. The ones that I know of are
+documented below.</p>
+<h3>Version 1</h3>
+<ul>
+  <li>
+    The ELM-327's UART Tx signal has the same polarity as the Rx signal and thus
+    must not be inverted by the RS-232 converter. <i>Solution:</i> Connect the
+    ELM-327's <span class="code">UART_Tx</span> signal (Pin 17) to <span
+    class="code">R2OUT</span> (Pin 9) on the MAX-232.
+  </li> 
+  <li>
+    Well, not a design error, but the CAN Transceiver (MCP2551) died during one
+    of the first tests. I replaced the SMD part with an external breadport and a
+    DIL version of the part. It would have been better to use the DIL version of
+    the part from the beginning.
+  </li>
+</ul>
+
+<a name="downloads" id="downloads" ></a>
+<h2>Downloads</h2>
+<ul>
+  <li><a href="obd2diag_schematics.pdf">Schematics, Version 1</a>.
+    Please see the <a href="#errata">errata</a> section above!
+  </li>
+</ul>
+
+<a name="links" id="links"></a>
+<h2>Links</h2>
+<p>Here are a few links related to this project.</p>
+
+<ul>
+ <li><a href="http://elmelectronics.com/DSheets/ELM327DSH.pdf">ELM-327 Datasheet</a> from the manufacturer's website.</li>
+ <li>Wikipedia article about <a href="https://en.wikipedia.org/wiki/On-board_diagnostics">On-board
+ diagnostics</a>.</li>
+ <li>Table of <a href="https://en.wikipedia.org/wiki/Table_of_OBD-II_Codes">OBD-II PIDs</a>, also Wikipedia.</li>
+ <li>Copy of the <a href="https://www.mikrocontroller.net/wikifiles/f/fc/BTM222_DataSheet.pdf">BTM-222 Datasheet</a> from a third-party site.</li>
+ <li>Sample circuit for a <a href="http://www.dse-faq.elektronik-kompendium.de/dse-faq.htm#F.23">car power supply</a> (German).</li>
+</ul>
+
+
+
+    <a name="contact" id="contact"></a>
+    <h2>Contact</h2>
+    <p>Contact the author Philip Schulz by <a id="email">Email</a>.</p>
+ </div>
+
+ <div class="logo">
+   <div class="footer">&nbsp;</div>
+   <a class="logo" href="http://validator.w3.org/check?uri=referer">
+     <img class="logo" src="http://www.w3.org/Icons/valid-xhtml10-blue"
+       alt="Valid XHTML 1.0 Strict" height="31" width="88" />
+   </a>
+   <a class="logo" href="http://jigsaw.w3.org/css-validator/">
+    <img class="logo" style="border:0;width:88px;height:31px"
+      src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+      alt="Valid CSS!" />
+   </a>
+ </div>
+
+ </body>
+</html>
